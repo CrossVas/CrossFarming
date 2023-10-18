@@ -127,11 +127,11 @@ public class ResinFarmBlockEntity extends BaseBlockEntity {
             if (mainFarm == null) {
                 Block.popResourceFromFace(level, pos.relative(side), side.getOpposite(), drop);
             } else {
-                ItemStack insertedStack = null;
+                ItemStack insertedStack = ItemStack.EMPTY;
                 if (drop.is(CrossFarmingData.CustomTags.RESIN_CROPS)) {
                     insertedStack = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, drop, 0, 21, false);
                 }
-                if (insertedStack != null) {
+                if (insertedStack.getCount() > 0) {
                     spawnItemStack(insertedStack, level, pos);
                 }
             }

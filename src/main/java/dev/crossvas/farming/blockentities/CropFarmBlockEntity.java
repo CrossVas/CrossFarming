@@ -86,12 +86,12 @@ public class CropFarmBlockEntity extends BaseBlockEntity implements MenuProvider
                 return;
             }
 
-            ItemStack dirtStack = null;
+            ItemStack dirtStack = ItemStack.EMPTY;
             if (this.ITEM_HANDLER.getStackInSlot(0) != null) {
                 dirtStack = this.ITEM_HANDLER.getStackInSlot(0);
             }
 
-            ItemStack seedStack = null;
+            ItemStack seedStack = ItemStack.EMPTY;
             if (this.ITEM_HANDLER.getStackInSlot(1) != null) {
                 seedStack = this.ITEM_HANDLER.getStackInSlot(1);
             }

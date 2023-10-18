@@ -73,12 +73,12 @@ public class InfernalFarmBlockEntity extends BaseBlockEntity {
                 tick = 0;
                 seconds++;
 
-                ItemStack soilStack = null;
+                ItemStack soilStack = ItemStack.EMPTY;
                 if (this.ITEM_HANDLER.getStackInSlot(0) != null) {
                     soilStack = this.ITEM_HANDLER.getStackInSlot(0);
                 }
 
-                ItemStack seedStack = null;
+                ItemStack seedStack = ItemStack.EMPTY;
                 if (this.ITEM_HANDLER.getStackInSlot(1) != null) {
                     seedStack = this.ITEM_HANDLER.getStackInSlot(1);
                 }

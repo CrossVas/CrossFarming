@@ -102,12 +102,12 @@ public class SucculentCombineBlockEntity extends BaseBlockEntity implements Menu
 
     protected void collectDrops(BlockPos pos) {
         for (ItemStack blockDrops : getBlockDrops(level, pos)) {
-            ItemStack result = null;
+            ItemStack result = ItemStack.EMPTY;
             if (blockDrops.is(CrossFarmingData.CustomTags.SUCCULENT_COMBINE_CROPS)) {
                 result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, blockDrops, 0, 21, false);
             }
 
-            if (result != null) {
+            if (result.getCount() > 0) {
                 spawnItemStack(result, this.level, pos);
             }
         }

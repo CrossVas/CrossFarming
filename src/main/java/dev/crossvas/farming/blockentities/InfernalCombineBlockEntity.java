@@ -128,12 +128,12 @@ public class InfernalCombineBlockEntity extends BaseBlockEntity {
 
     protected void collectDrops(BlockPos pos) {
         for (ItemStack blockDrops : getBlockDrops(this.level, pos)) {
-            ItemStack result = null;
+            ItemStack result = ItemStack.EMPTY;
             if (blockDrops.is(CrossFarmingData.CustomTags.INFERNAL_FARM_SEEDS)) {
                 result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, blockDrops, 0, 21, false);
             }
 
-            if (result != null) {
+            if (result.getCount() > 0) {
                 spawnItemStack(result, this.level, pos);
             }
         }

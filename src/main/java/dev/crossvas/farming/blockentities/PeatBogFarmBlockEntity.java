@@ -93,7 +93,7 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity implements MenuProvi
                 return;
             }
 
-            ItemStack soilStack = null;
+            ItemStack soilStack = ItemStack.EMPTY;
             if (this.ITEM_HANDLER.getStackInSlot(0) != null) {
                 soilStack = this.ITEM_HANDLER.getStackInSlot(0);
             }
@@ -164,12 +164,12 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity implements MenuProvi
 
     protected void collectDrops(BlockPos pos) {
         for (ItemStack blockDrops : getBlockDrops(this.level, pos)) {
-            ItemStack result = null;
+            ItemStack result = ItemStack.EMPTY;
             if (blockDrops.is(CrossFarmingData.CustomTags.PEAT_FARM_WASTE)) {
                 result = ItemHelper.insertItemStacked(ITEM_HANDLER, blockDrops, 1, 5, false);
             }
 
-            if (result != null) {
+            if (result.getCount() > 0) {
                 spawnItemStack(result, this.level, pos);
             }
         }

@@ -127,7 +127,7 @@ public class PeatBogCombineBlockEntity extends BaseBlockEntity {
                 result = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, blockDrops, 1, 4, false);
             }
 
-            if (result != null) {
+            if (result.getCount() > 0) {
                 spawnItemStack(result, this.level, pos);
             }
         }
