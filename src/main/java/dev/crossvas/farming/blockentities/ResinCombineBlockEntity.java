@@ -5,7 +5,6 @@ import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.ResinCombineMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -15,7 +14,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ResinCombineBlockEntity extends BaseBlockEntity implements MenuProvider {
+public class ResinCombineBlockEntity extends BaseBlockEntity {
 
     public int seconds;
 

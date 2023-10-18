@@ -11,7 +11,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class TreeCombineBlockEntity extends BaseBlockEntity implements MenuProvider {
+public class TreeCombineBlockEntity extends BaseBlockEntity {
 
     protected final Predicate<ItemEntity> VALID_ITEM_ENTITY = item -> {
         if (!item.isAlive() || item.hasPickUpDelay()) {

@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CropCombineBlockEntity extends BaseBlockEntity implements MenuProvider {
+public class CropCombineBlockEntity extends BaseBlockEntity {
 
     public CropCombineBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.CROP_COMBINE_TILE.get(), pPos, pBlockState);

@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,7 +21,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CropFarmBlockEntity extends BaseBlockEntity implements MenuProvider {
+public class CropFarmBlockEntity extends BaseBlockEntity {
 
     public CropFarmBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(CrossFarmingData.CROP_FARM_TILE.get(), pWorldPosition, pBlockState);

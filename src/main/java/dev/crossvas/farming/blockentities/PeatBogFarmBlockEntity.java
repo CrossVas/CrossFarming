@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeatBogFarmBlockEntity extends BaseBlockEntity implements MenuProvider {
+public class PeatBogFarmBlockEntity extends BaseBlockEntity {
 
     public int soilCounter;
     public int waterCounter;
