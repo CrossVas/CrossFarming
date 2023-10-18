@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:block/cube",
+	"textures": {
+		"down": "cross_farming:block/combine/gourd/bottom",
+		"east": "cross_farming:block/combine/gourd/side",
+		"north": "cross_farming:block/combine/gourd/side",
+		"particle": "cross_farming:block/combine/gourd/side",
+		"south": "cross_farming:block/combine/gourd/side",
+		"up": "cross_farming:block/combine/gourd/top",
+		"west": "cross_farming:block/combine/gourd/side"
+	}
+}

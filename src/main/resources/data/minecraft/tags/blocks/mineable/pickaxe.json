@@ -1,0 +1,17 @@
+{
+  "values": [
+    "cross_farming:crop_farm",
+    "cross_farming:crop_combine",
+    "cross_farming:tree_farm",
+    "cross_farming:tree_combine",
+    "cross_farming:gourd_combine",
+    "cross_farming:succulent_combine",
+    "cross_farming:peat_bog_farm",
+    "cross_farming:peat_bog_combine",
+    "cross_farming:cocoa_combine",
+    "cross_farming:infernal_farm",
+    "cross_farming:infernal_combine",
+    "cross_farming:resin_farm",
+    "cross_farming:resin_combine"
+  ]
+}

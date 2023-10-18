@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "cross_farming:tree_combine"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "M": {
+      "item": "minecraft:melon"
+    },
+    "P": {
+      "item": "minecraft:pumpkin"
+    }
+  },
+  "pattern": [
+    "MGP",
+    "GFG",
+    "PGM"
+  ],
+  "result": {
+    "item": "cross_farming:gourd_combine"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "cross_farming:block/tree_farm" }
+  }
+}

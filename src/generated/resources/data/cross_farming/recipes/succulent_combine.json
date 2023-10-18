@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:cactus"
+    },
+    "F": {
+      "item": "cross_farming:tree_combine"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "pattern": [
+    "CGC",
+    "GFG",
+    "CGC"
+  ],
+  "result": {
+    "item": "cross_farming:succulent_combine"
+  }
+}

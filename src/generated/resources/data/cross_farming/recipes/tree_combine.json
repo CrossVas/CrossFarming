@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "cross_farming:enable_vanilla_recipes"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "key": {
+          "C": {
+            "item": "minecraft:stone"
+          },
+          "D": {
+            "tag": "forge:gems/diamond"
+          },
+          "G": {
+            "item": "minecraft:glass"
+          },
+          "P": {
+            "item": "minecraft:sticky_piston"
+          },
+          "R": {
+            "item": "minecraft:oxidized_copper"
+          },
+          "S": {
+            "item": "minecraft:golden_axe"
+          }
+        },
+        "pattern": [
+          "GDG",
+          "SPS",
+          "CRC"
+        ],
+        "result": {
+          "item": "cross_farming:tree_combine"
+        }
+      }
+    }
+  ]
+}

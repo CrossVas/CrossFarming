@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "cross_farming:crop_farm"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "W": {
+      "item": "minecraft:nether_wart"
+    }
+  },
+  "pattern": [
+    "WGW",
+    "GFG",
+    "WGW"
+  ],
+  "result": {
+    "item": "cross_farming:infernal_farm"
+  }
+}

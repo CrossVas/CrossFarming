@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "cross_farming:ic2_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "key": {
+          "F": {
+            "item": "cross_farming:resin_farm"
+          },
+          "G": {
+            "item": "minecraft:glass"
+          },
+          "T": {
+            "item": "ic2:electric_tree_tap"
+          }
+        },
+        "pattern": [
+          "TGT",
+          "GFG",
+          "TGT"
+        ],
+        "result": {
+          "item": "cross_farming:resin_combine"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:block/cube",
+	"textures": {
+		"down": "cross_farming:block/combine/resin/bottom",
+		"east": "cross_farming:block/combine/resin/side",
+		"north": "cross_farming:block/combine/resin/side",
+		"particle": "cross_farming:block/combine/resin/side",
+		"south": "cross_farming:block/combine/resin/side",
+		"up": "cross_farming:block/combine/resin/top",
+		"west": "cross_farming:block/combine/resin/side"
+	}
+}

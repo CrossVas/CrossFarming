@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:block/cube",
+	"textures": {
+		"down": "cross_farming:block/combine/succulent/bottom",
+		"east": "cross_farming:block/combine/succulent/side",
+		"north": "cross_farming:block/combine/succulent/side",
+		"particle": "cross_farming:block/combine/succulent/side",
+		"south": "cross_farming:block/combine/succulent/side",
+		"up": "cross_farming:block/combine/succulent/top",
+		"west": "cross_farming:block/combine/succulent/side"
+	}
+}

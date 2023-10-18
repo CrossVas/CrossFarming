@@ -1,0 +1,46 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "cross_farming:enable_ic2_recipes"
+        },
+        {
+          "type": "cross_farming:ic2_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "key": {
+          "#": {
+            "item": "ic2:advanced_circuit"
+          },
+          "D": {
+            "item": "ic2:magnet"
+          },
+          "G": {
+            "item": "minecraft:glass"
+          },
+          "M": {
+            "item": "ic2:machine_block"
+          },
+          "P": {
+            "item": "minecraft:sticky_piston"
+          },
+          "S": {
+            "item": "minecraft:golden_hoe"
+          }
+        },
+        "pattern": [
+          "GDG",
+          "SPS",
+          "M#M"
+        ],
+        "result": {
+          "item": "cross_farming:crop_combine"
+        }
+      }
+    }
+  ]
+}

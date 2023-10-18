@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "S": {
+      "item": "minecraft:sand"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "DSD",
+    "SWS",
+    "DSD"
+  ],
+  "result": {
+    "count": 6,
+    "item": "cross_farming:peat_bog_block"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "itemGroup.cross_farming": "Cross' Farming",
+
+  "item.cross_farming.peat": "Peat",
+  "block.cross_farming.peat_block": "Peat Block",
+  "block.cross_farming.peat_bog_block": "Bog Earth",
+
+  "block.cross_farming.crop_farm": "Farm",
+  "block.cross_farming.crop_combine": "Farm Combine",
+  "block.cross_farming.resin_farm": "Resin Extractor",
+  "block.cross_farming.resin_combine": "Resin Combine",
+  "block.cross_farming.tree_farm": "Arboretum",
+  "block.cross_farming.tree_combine": "Logger",
+  "block.cross_farming.gourd_farm": "Gourd Farm",
+  "block.cross_farming.gourd_combine": "Gourd Combine",
+  "block.cross_farming.succulent_combine": "Succulent Combine",
+  "block.cross_farming.infernal_farm": "Infernal Farm",
+  "block.cross_farming.infernal_combine": "Infernal Combine",
+  "block.cross_farming.peat_bog_farm": "Peat Bog Farm",
+  "block.cross_farming.peat_bog_combine": "Peat Bog Combine",
+  "block.cross_farming.cocoa_combine": "Cocoa Combine",
+
+  "gui.farm.crop": "Farm",
+  "gui.farm.crop.combine": "Farm Combine",
+  "gui.farm.resin.combine": "Resin Combine",
+  "gui.farm.tree": "Arboretum",
+  "gui.farm.tree.combine": "Logger",
+  "gui.farm.gourd": "Gourd Farm",
+  "gui.farm.gourd.combine": "Gourd Combine",
+  "gui.farm.succulent.combine": "Succulent Combine",
+  "gui.farm.infernal": "Infernal Farm",
+  "gui.farm.infernal.combine": "Infernal Combine",
+  "gui.farm.peat_bog": "Peat Bog Farm",
+  "gui.farm.peat_bog.combine": "Peat Bog Combine",
+  "gui.farm.cocoa.combine": "Cocoa Combine"
+}
