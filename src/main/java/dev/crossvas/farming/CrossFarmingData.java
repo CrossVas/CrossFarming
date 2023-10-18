@@ -6,6 +6,7 @@ import dev.crossvas.farming.blocks.BaseFarmBlock;
 import dev.crossvas.farming.blocks.BlockPeatBog;
 import dev.crossvas.farming.gui.menus.*;
 import dev.crossvas.farming.gui.screens.*;
+import dev.crossvas.farming.items.PeatItem;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -44,7 +45,7 @@ public class CrossFarmingData {
 
     // Items
 
-    public static final RegistryObject<Item> PEAT_ITEM = registerItem("peat", () -> new Item(new Item.Properties().tab(CrossFarming.TAB)));
+    public static final RegistryObject<Item> PEAT_ITEM = registerItem("peat", PeatItem::new);
 
     // Blocks
 
