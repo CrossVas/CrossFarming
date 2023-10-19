@@ -104,8 +104,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
         if (cap == ForgeCapabilities.ENERGY) {
             return getLazyEnergyHandler().cast();
-        }
-        if (hasSidedCaps()) {
+        } else if (hasSidedCaps()) {
             if (cap == ForgeCapabilities.ITEM_HANDLER) {
                 if (side == null) {
                     return getLazyItemHandler().cast();

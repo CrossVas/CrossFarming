@@ -62,9 +62,9 @@ public class ResinFarmBlockEntity extends BaseBlockEntity {
                 }
             }
 
+            List<BlockPos> collectablePos = new ArrayList<>();
             if (seconds == 10) {
                 seconds = 0;
-                List<BlockPos> collectablePos = new ArrayList<>();
                 for (BlockPos workPos : getWorkingSpace(getBlockPos().above(), farmRange)) {
                     if (hasEnergyToWork()) {
                         if (level.getBlockState(workPos).getBlock() instanceof ic2.core.block.resource.RubberwoodLogBlock) {
@@ -78,19 +78,19 @@ public class ResinFarmBlockEntity extends BaseBlockEntity {
                         }
                     }
                 }
-                if (extractionSeconds == CrossFarmingConfig.RESIN_FARM_SECONDS_TICK.get()) {
-                    extractionSeconds = 0;
-                    for (BlockPos collectable : collectablePos) {
-                        if (shouldExtract(collectable)) {
-                            setChanged();
-                            extracted++;
-                            if (extracted == 9) {
-                                extracted = 0;
-                                break;
-                            }
-                        } else {
+            }
+            if (extractionSeconds == CrossFarmingConfig.RESIN_FARM_SECONDS_TICK.get()) {
+                extractionSeconds = 0;
+                for (BlockPos collectable : collectablePos) {
+                    if (shouldExtract(collectable)) {
+                        setChanged();
+                        extracted++;
+                        if (extracted == 9) {
+                            extracted = 0;
                             break;
                         }
+                    } else {
+                        break;
                     }
                 }
             }

@@ -35,7 +35,6 @@ public class CrossFarmingConfig {
 
     public static ForgeConfigSpec.IntValue RESIN_FARM_SECONDS_TICK;
     public static ForgeConfigSpec.IntValue RESIN_FARM_ENERGY_USAGE;
-    public static ForgeConfigSpec.IntValue RESIN_COMBINE_SECONDS_TICK;
     public static ForgeConfigSpec.IntValue RESIN_COMBINE_ENERGY_USAGE;
 
     public static ForgeConfigSpec.IntValue GOURD_COMBINE_SECONDS_TICK;
@@ -81,9 +80,8 @@ public class CrossFarmingConfig {
         PEAT_COMBINE_ENERGY_USAGE = builder.defineInRange("peat_combine_energy_usage", 30, 0, Integer.MAX_VALUE);
         builder.pop();
         builder.comment("Resin Farm Settings").push("resin");
-        RESIN_FARM_SECONDS_TICK = builder.defineInRange("resin_farm_seconds_tick", 5, 1, Integer.MAX_VALUE);
+        RESIN_FARM_SECONDS_TICK = builder.defineInRange("resin_farm_seconds_tick", 60, 1, Integer.MAX_VALUE);
         RESIN_FARM_ENERGY_USAGE = builder.defineInRange("resin_farm_energy_usage", 20, 0, Integer.MAX_VALUE);
-        RESIN_COMBINE_SECONDS_TICK = builder.defineInRange("resin_combine_seconds_tick", 60, 1, Integer.MAX_VALUE);
         RESIN_COMBINE_ENERGY_USAGE = builder.defineInRange("resin_combine_energy_usage", 30, 0, Integer.MAX_VALUE);
         builder.pop();
         builder.comment("Gourd Farm Settings").push("gourd");
