@@ -47,7 +47,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
 
     protected BaseBlockEntity mainFarm = null;
 
-    protected final LazyOptional<IEnergyStorage> LAZY_ENERGY_HANDLER = getLazyEnergyHandler();
+    protected final LazyOptional<IEnergyStorage> LAZY_ENERGY_HANDLER = LazyOptional.of(() -> this.ENERGY_STORAGE);
 
     protected final CustomEnergyStorage ENERGY_STORAGE = new CustomEnergyStorage() {
         @Override
@@ -60,7 +60,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
     protected int ENERGY_STORED;
 
     public final ItemStackHandler ITEM_HANDLER = getItemHandler();
-    protected final LazyOptional<IItemHandler> LAZY_ITEM_HANDLER = getLazyItemHandler();
+    protected final LazyOptional<IItemHandler> LAZY_ITEM_HANDLER = LazyOptional.of(() -> ITEM_HANDLER);
 
     protected Map<Direction, LazyOptional<ItemStackWrappedHandler>> sidedCaps;
 
@@ -103,11 +103,11 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
         if (cap == ForgeCapabilities.ENERGY) {
-            return getLazyEnergyHandler().cast();
+            return LAZY_ENERGY_HANDLER.cast();
         } else if (hasSidedCaps()) {
             if (cap == ForgeCapabilities.ITEM_HANDLER) {
                 if (side == null) {
-                    return getLazyItemHandler().cast();
+                    return LAZY_ITEM_HANDLER.cast();
                 }
                 if(sidedCaps.containsKey(side)) {
                     return sidedCaps.get(side).cast();
@@ -134,7 +134,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
                 }
             }
         }
-        this.getLazyEnergyHandler().invalidate();
+        this.LAZY_ENERGY_HANDLER.invalidate();
         super.setRemoved();
     }
 
@@ -144,7 +144,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
             this.ITEM_HANDLER.deserializeNBT(pTag.getCompound("InventorySlot"));
         }
         if (pTag.contains("Energy")) {
-            setEnergyLevel(pTag.getInt("Energy"));
+            this.ENERGY_STORAGE.deserializeNBT(pTag.get("Energy"));
         }
         if (pTag.contains("platformCleared")) {
             platformCleared = pTag.getBoolean("platformCleared");
@@ -171,14 +171,6 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
 
     public abstract ItemStackHandler getItemHandler();
 
-    public LazyOptional<IItemHandler> getLazyItemHandler() {
-        return LazyOptional.of(() -> ITEM_HANDLER);
-    }
-
-    public LazyOptional<IEnergyStorage> getLazyEnergyHandler() {
-        return LazyOptional.of(() -> this.ENERGY_STORAGE);
-    }
-
     public void drops() {
         if (hasSidedCaps()) {
             SimpleContainer inventory = new SimpleContainer(ITEM_HANDLER.getSlots());
@@ -190,10 +182,6 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
     }
 
     // Utils
-
-    public void setEnergyLevel(int energy) {
-        this.ENERGY_STORAGE.setEnergy(energy);
-    }
 
     public IEnergyStorage getEnergyStorage() {
         return this.ENERGY_STORAGE;
