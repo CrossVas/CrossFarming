@@ -29,39 +29,39 @@ The Main Farm block can IO items via GUI, The Combine can ONLY output items usin
     - Working Range: 15 blocks
     - Requires: Dirt/Farmland blocks & seeds/crops
     - Can farm: wheat, potato, carrot, beetroot
-<img src="run/screenshots/crops.png" style="border: solid 5px #CCC">
+<img src="demo/crops.png" style="border: solid 5px #CCC">
 
   - Trees
     - Working Range: 15 blocks
     - Collecting area: working area + 5 blocks
     - Requires: Dirt blocks & saplings
     - Can farm: wood, saplings, sticks, apples
-<img src="run/screenshots/trees.png" style="border: solid 5px #CCC">
+<img src="demo/trees.png" style="border: solid 5px #CCC">
   - Peat
     - Working Range: 15 blocks
     - Requires: Bog Earth Block 
     - Can farm: Peat, sand as waste
-<img src="run/screenshots/peat.png" style="border: solid 5px #CCC">
+<img src="demo/peat.png" style="border: solid 5px #CCC">
   - Nether Wart
     - Working Range: 15 blocks
     - Requires: Soul Sand & Nether Wart
     - Can farm: nether wart 
-<img src="run/screenshots/nether.png" style="border: solid 5px #CCC">
+<img src="demo/nether.png" style="border: solid 5px #CCC">
 
 #### Manual Farms:
   - Resin Farm (IC2C compat)
     - Working Range: 15 blocks from Combine Block's Y + 1
     - Can farm: sticky resin from IC2Classic
-<img src="run/screenshots/resin.png" style="border: solid 5px #CCC">
+<img src="demo/resin.png" style="border: solid 5px #CCC">
   - Pumpkin, Melon Farm
     - Working Range: 15 blocks from Combine Block's Y + 1
     - Can farm: pumpkin, melon slice
-<img src="run/screenshots/gourd.png" style="border: solid 5px #CCC">
+<img src="demo/gourd.png" style="border: solid 5px #CCC">
   - Cactus, Bamboo, Sugar Cane Farm
     - Working Range: 15 blocks from Combine Block's Y + 2
     - Can farm: cactus, sugar cane, bamboo
-<img src="run/screenshots/succulent.png" style="border: solid 5px #CCC">
+<img src="demo/succulent.png" style="border: solid 5px #CCC">
   - Cocoa Beans Farm
     - Working Range: 15 blocks from Combine Block's Y + 2
     - Can farm: cocoa beans
-<img src="run/screenshots/cocoa.png" style="border: solid 5px #CCC">
+<img src="demo/cocoa.png" style="border: solid 5px #CCC">
