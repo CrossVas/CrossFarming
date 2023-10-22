@@ -20,7 +20,7 @@ public class ResinCombineBlockEntity extends BaseBlockEntity {
 
     public ResinCombineBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.RESIN_COMBINE_TILE.get(), pPos, pBlockState);
-        initCombineSidedCaps();
+        initCombineSidedCaps(this);
     }
 
     @Override

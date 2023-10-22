@@ -4,16 +4,12 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.CropCombineMenu;
-import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -24,14 +20,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class CropCombineBlockEntity extends BaseBlockEntity {
 
     public CropCombineBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.CROP_COMBINE_TILE.get(), pPos, pBlockState);
         this.ENERGY_USAGE = CrossFarmingConfig.CROP_COMBINE_ENERGY_USAGE.get();
-        initCombineSidedCaps();
+        initCombineSidedCaps(this);
     }
 
     @Override
@@ -92,8 +86,9 @@ public class CropCombineBlockEntity extends BaseBlockEntity {
                 for (BlockPos workPos : getWorkingSpace(mainFarm.getBlockPos(), farmRange)) {
                     if (!getWorkingSpace(mainFarm.getBlockPos(), farmArea).contains(workPos) && !getWaterBlockPos(mainFarm.getBlockPos(), farmRange).contains(workPos)) {
                         if (hasEnergyToWork()) {
-                            harvest(workPos.above(), false);
-                            setChanged();
+                            if (shouldHarvest(workPos.above())) {
+                                setChanged();
+                            }
                         }
                     }
                 }
@@ -101,35 +96,19 @@ public class CropCombineBlockEntity extends BaseBlockEntity {
         }
     }
 
-    public void harvest(BlockPos pos, boolean drop) {
+    public boolean shouldHarvest(BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) {
-            return;
-        } else if (state.getBlock() instanceof IPlantable && state.getBlock() instanceof CropBlock && state.getValue(CropBlock.AGE) == CropBlock.MAX_AGE) {
-            collectDrops(pos);
-            this.extractEnergy();
-            level.destroyBlock(pos, drop);
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-        }
-    }
-
-    protected void collectDrops(BlockPos pos) {
-        for (ItemStack blockDrops : getBlockDrops(this.level, pos)) {
-            ItemStack result = ItemStack.EMPTY;
-            if (blockDrops.is(CrossFarmingData.CustomTags.FARM_SEEDS) || blockDrops.is(CrossFarmingData.CustomTags.FARM_CROPS)) {
-                result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, blockDrops, 0, 21, false);
-            }
-
-            if (result.getCount() > 0) {
-                spawnItemStack(result, this.level, pos);
+            return false;
+        } else if (state.getBlock() instanceof IPlantable && state.getBlock() instanceof CropBlock) {
+            if (state.getValue(CropBlock.AGE) == CropBlock.MAX_AGE) {
+                collectDrops(pos, CrossFarmingData.CustomTags.FARM_CROPS);
+                level.destroyBlock(pos, false);
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                this.extractEnergy();
+                return true;
             }
         }
-    }
-
-    public static List<ItemStack> getBlockDrops(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        NonNullList<ItemStack> stacks = NonNullList.create();
-        stacks.addAll(Block.getDrops(state, (ServerLevel)world, pos, world.getBlockEntity(pos)));
-        return stacks;
+        return false;
     }
 }

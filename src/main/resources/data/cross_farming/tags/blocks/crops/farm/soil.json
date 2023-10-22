@@ -1,5 +1,10 @@
 {
   "values": [
-    "minecraft:farmland"
+    "minecraft:farmland",
+    "mysticalagriculture:inferium_farmland",
+    "mysticalagriculture:prudentium_farmland",
+    "mysticalagriculture:tertium_farmland",
+    "mysticalagriculture:imperium_farmland",
+    "mysticalagriculture:supremium_farmland"
   ]
 }

@@ -8,13 +8,13 @@ import javax.annotation.Nonnull;
 
 public class ItemHelper {
 
-    public static ItemStack insertItemStacked(IItemHandler inventory, @Nonnull ItemStack stack, int minSlot, int maxSlot, boolean simulate) {
+    public static ItemStack insertItemStacked(IItemHandler inventory, int startIndex, @Nonnull ItemStack stack, boolean simulate) {
         if (inventory != null && !stack.isEmpty()) {
             if (!stack.isStackable()) {
-                return insertItem(inventory, stack, minSlot, maxSlot, simulate);
+                return insertItem(inventory, stack, simulate);
             } else {
                 int i;
-                for(i = minSlot; i < maxSlot; ++i) {
+                for(i = startIndex; i < inventory.getSlots(); i++) {
                     ItemStack slot = inventory.getStackInSlot(i);
                     if (ItemHandlerHelper.canItemStacksStackRelaxed(slot, stack)) {
                         stack = inventory.insertItem(i, stack, simulate);
@@ -25,7 +25,7 @@ public class ItemHelper {
                 }
 
                 if (!stack.isEmpty()) {
-                    for(i = minSlot; i < maxSlot; ++i) {
+                    for(i = startIndex; i < inventory.getSlots(); i++) {
                         if (inventory.getStackInSlot(i).isEmpty()) {
                             stack = inventory.insertItem(i, stack, simulate);
                             if (stack.isEmpty()) {
@@ -42,18 +42,15 @@ public class ItemHelper {
         }
     }
 
-    public static ItemStack insertItem(IItemHandler dest, @Nonnull ItemStack stack, int minSlot, int maxSlot, boolean simulate) {
+    public static ItemStack insertItem(IItemHandler dest, @Nonnull ItemStack stack, boolean simulate) {
         if (dest != null && !stack.isEmpty()) {
-            for(int i = minSlot; i < maxSlot; ++i) {
+            for(int i = 0; i < dest.getSlots(); i++) {
                 stack = dest.insertItem(i, stack, simulate);
                 if (stack.isEmpty()) {
                     return ItemStack.EMPTY;
                 }
             }
-
-            return stack;
-        } else {
-            return stack;
         }
+        return stack;
     }
 }

@@ -15,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -127,12 +129,19 @@ public class ResinFarmBlockEntity extends BaseBlockEntity {
             if (mainFarm == null) {
                 Block.popResourceFromFace(level, pos.relative(side), side.getOpposite(), drop);
             } else {
-                ItemStack insertedStack = ItemStack.EMPTY;
-                if (drop.is(CrossFarmingData.CustomTags.RESIN_CROPS)) {
-                    insertedStack = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, drop, 0, 21, false);
-                }
-                if (insertedStack.getCount() > 0) {
-                    spawnItemStack(insertedStack, level, pos);
+                if (mainFarm instanceof ResinCombineBlockEntity resinCombine) {
+                    ItemStack insertedStack;
+                    if (drop.is(CrossFarmingData.CustomTags.RESIN_CROPS)) {
+                        if (!resinCombine.getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
+                            IItemHandler itemHandler = resinCombine.getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
+                            insertedStack = ItemHelper.insertItemStacked(itemHandler, 0, drop, false);
+                        } else {
+                            insertedStack = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, 0, drop, false);
+                        }
+                        if (insertedStack.getCount() > 0) {
+                            spawnItemStack(insertedStack, level, pos);
+                        }
+                    }
                 }
             }
             extractEnergy();

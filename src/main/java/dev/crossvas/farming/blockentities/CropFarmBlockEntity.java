@@ -26,7 +26,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
     public CropFarmBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(CrossFarmingData.CROP_FARM_TILE.get(), pWorldPosition, pBlockState);
         this.ENERGY_USAGE = CrossFarmingConfig.CROP_FARM_ENERGY_USAGE.get();
-        initFarmSidedCaps();
+        initFarmSidedCaps(this);
     }
 
     @Override
@@ -123,15 +123,18 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
                 for (BlockPos pos : getWorkingSpace(getBlockPos(), farmRange)) {
                     if (!getWorkingSpace(getBlockPos(), farmArea).contains(pos) && !getWaterBlockPos(getBlockPos(), farmRange).contains(pos)) {
                         if (hasEnergyToWork() && dirtStack.is(CrossFarmingData.CustomTags.FARM_SOIL)) {
-                            if (shouldReplace(pos)) {
-                                dirtStack.shrink(1);
-                                this.soilCounter++;
-                                if (this.soilCounter == 9) {
-                                    this.soilCounter = 0;
-                                    break;
+                            if (dirtStack.getItem() instanceof BlockItem blockItem) {
+                                Block soil = blockItem.getBlock();
+                                if (shouldReplace(pos, soil)) {
+                                    dirtStack.shrink(1);
+                                    this.soilCounter++;
+                                    if (this.soilCounter == 9) {
+                                        this.soilCounter = 0;
+                                        break;
+                                    }
+                                } else {
+                                    platformBuilt = true;
                                 }
-                            } else {
-                                platformBuilt = true;
                             }
                         }
                     }
@@ -158,7 +161,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldReplaceWater(BlockPos pos) {
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(Blocks.WATER) && hasWaterSides(pos, Blocks.FARMLAND) && hasEnergyToWork()) {
+        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CrossFarmingData.CustomTags.FARM_SOIL_BLOCK) && hasEnergyToWork()) {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
@@ -168,11 +171,12 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    public boolean shouldReplace(BlockPos pos) {
+    public boolean shouldReplace(BlockPos pos, Block block) {
+        Block FARMLAND = Blocks.FARMLAND;
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(Blocks.FARMLAND)) {
+        if (!state.is(CrossFarmingData.CustomTags.FARM_SOIL_BLOCK)) {
             level.destroyBlock(pos, true);
-            level.setBlock(pos, Blocks.FARMLAND.defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(pos, block == Blocks.DIRT ? FARMLAND.defaultBlockState() : block.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
             setChanged();
@@ -183,7 +187,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldPlant(BlockPos pos, Block cropBlock) {
         BlockState state = level.getBlockState(pos);
-        if (!state.is(BlockTags.CROPS)) {
+        if (!state.is(CrossFarmingData.CustomTags.FARM_CROPS_BLOCK)) {
             level.setBlock(pos, cropBlock.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();

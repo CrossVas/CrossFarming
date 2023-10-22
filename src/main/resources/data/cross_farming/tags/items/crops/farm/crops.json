@@ -1,9 +1,13 @@
 {
   "values": [
     "minecraft:wheat",
+    "minecraft:wheat_seeds",
     "minecraft:potato",
     "minecraft:poisonous_potato",
     "minecraft:carrot",
-    "minecraft:beetroot"
+    "minecraft:beetroot",
+    "minecraft:beetroot_seeds",
+    "#mysticalagriculture:seeds",
+    "#mysticalagriculture:essences"
   ]
 }

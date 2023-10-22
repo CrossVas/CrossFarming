@@ -1,14 +1,20 @@
 package dev.crossvas.farming.blockentities.base;
 
+import dev.crossvas.farming.utils.helpers.Helpers;
+import dev.crossvas.farming.utils.helpers.ItemHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -64,6 +70,8 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
 
     protected Map<Direction, LazyOptional<ItemStackWrappedHandler>> sidedCaps;
 
+    private final Map<Direction,Map<Capability<?>,LazyOptional<?>>> surroundingCapabilities = new EnumMap<>(Direction.class);
+
     protected BlockPos[] aroundPoses = {getBlockPos().north(), getBlockPos().south(), getBlockPos().east(), getBlockPos().west()};
 
     public BaseBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
@@ -84,6 +92,10 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
                 return 1;
             }
         };
+
+        for (Direction facing : Direction.values()) {
+            this.surroundingCapabilities.put(facing, new HashMap<>());
+        }
     }
 
     public void init() {
@@ -117,7 +129,30 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         return super.getCapability(cap, side);
     }
 
+    public <T> List<T> getSurroundingCaps(Capability<T> capability) {
+        if(this.level == null)
+            return Collections.emptyList();
+
+        ArrayList<T> list = new ArrayList<>();
+        for(Direction facing : Direction.values()) {
+            LazyOptional<?> optional = Helpers.computeIfLazyAbsent(this.surroundingCapabilities.get(facing), capability, o -> {
+                BlockEntity entity = this.level.getBlockEntity(this.getBlockPos().relative(facing));
+                if(!(entity instanceof BaseBlockEntity) && entity != null) {
+                    return entity.getCapability(capability, facing.getOpposite());
+                }
+                return LazyOptional.empty();
+            });
+            if(optional.isPresent()) {
+                list.add((T)optional.orElseGet(() -> null));
+            }
+        }
+        return list;
+    }
+
     public void onTick() {
+        if (!hasEnergyToWork()) {
+            return;
+        }
         if (!initialized) {
             init();
         }
@@ -231,56 +266,83 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         return waterPoses;
     }
 
-    public static boolean spawnItemStack(ItemStack stack, Level world, BlockPos pos) {
-        ItemEntity item = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, stack);
-        item.lerpMotion(0.0, -1.0, 0.0);
-        item.setPickUpDelay(40);
-        item.setItem(stack);
-        return world.addFreshEntity(item);
-    }
-
-    public void initFarmSidedCaps() {
+    public void initFarmSidedCaps(BaseBlockEntity blockEntity) {
         this.sidedCaps = Map.of(
-                Direction.DOWN, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, true, false)),
-                Direction.UP, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, false, false)),
-                Direction.NORTH, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, false, true)),
-                Direction.SOUTH, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, false, true)),
-                Direction.EAST, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, false, true)),
-                Direction.WEST, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, false, true)));
+                Direction.DOWN, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, true, false)),
+                Direction.UP, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, false, false)),
+                Direction.NORTH, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, false, true)),
+                Direction.SOUTH, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, false, true)),
+                Direction.EAST, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, false, true)),
+                Direction.WEST, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, false, true)));
     }
 
-    public void initCombineSidedCaps() {
+    public void initCombineSidedCaps(BaseBlockEntity blockEntity) {
         this.sidedCaps = new HashMap<>();
         for (Direction side : Direction.values()) {
-            sidedCaps.put(side, LazyOptional.of(() -> new ItemStackWrappedHandler(ITEM_HANDLER, true, false)));
+            sidedCaps.put(side, LazyOptional.of(() -> new ItemStackWrappedHandler(blockEntity, ITEM_HANDLER, true, false)));
         }
     }
 
-    public boolean hasWaterSides(BlockPos pos, Block block) {
-        return level.getBlockState(pos.east()).is(block) && level.getBlockState(pos.west()).is(block) &&
-                level.getBlockState(pos.north()).is(block) && level.getBlockState(pos.south()).is(block);
+    public boolean hasWaterSides(BlockPos pos, TagKey<Block> blockTag) {
+        return level.getBlockState(pos.east()).is(blockTag) && level.getBlockState(pos.west()).is(blockTag) &&
+                level.getBlockState(pos.north()).is(blockTag) && level.getBlockState(pos.south()).is(blockTag);
     }
 
-    public List<BlockPos> findPositions(BlockState state, BlockPos location, Level world) {
+    public List<BlockPos> findPositions(BlockPos location) {
         List<BlockPos> found = new ArrayList<>();
         Set<BlockPos> checked = new ObjectOpenHashSet<>();
-        found.add(location.immutable());
-        Block startBlock = state.getBlock();
+        found.add(location);
+        Block startBlock = level.getBlockState(location).getBlock();
         for (int i = 0; i < found.size(); i++) {
             BlockPos blockPos = found.get(i);
             checked.add(blockPos);
             for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-2, -2, -2), blockPos.offset(2, 2, 2))) {
                 // We can check contains as mutable
                 if (!checked.contains(pos)) {
-                    if (!world.getBlockState(pos).isAir()) {
-                        if (startBlock == world.getBlockState(pos).getBlock()) {
+                    if (!level.getBlockState(pos).isAir()) {
+                        if (startBlock == level.getBlockState(pos).getBlock()) {
                             // Make sure to add it as immutable
                             found.add(pos.immutable());
+                        }
+                        if (found.size() > 32) {
+                            return found;
                         }
                     }
                 }
             }
         }
         return found;
+    }
+
+    protected void collectDrops(BlockPos pos, TagKey<Item> whitelistItems) {
+        for (ItemStack drop : getBlockDrops(level, pos)) {
+            ItemStack result;
+            if (drop.is(whitelistItems)) {
+                 if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
+                    IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
+                    result = ItemHelper.insertItemStacked(itemHandler, 0, drop, false);
+                } else {
+                    result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
+                }
+                if (result.getCount() > 0) {
+                    spawnItemStack(result, level, pos);
+                }
+            }
+        }
+    }
+
+    public static List<ItemStack> getBlockDrops(Level world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        NonNullList<ItemStack> stacks = NonNullList.create();
+        stacks.addAll(Block.getDrops(state, (ServerLevel)world, pos, world.getBlockEntity(pos)));
+        return stacks;
+    }
+
+    public static boolean spawnItemStack(ItemStack stack, Level world, BlockPos pos) {
+        ItemEntity item = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, stack);
+        item.lerpMotion(0.0, -1.0, 0.0);
+        item.setPickUpDelay(40);
+        item.setItem(stack);
+        return world.addFreshEntity(item);
     }
 }

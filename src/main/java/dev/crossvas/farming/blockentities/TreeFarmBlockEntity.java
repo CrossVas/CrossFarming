@@ -32,7 +32,7 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
     public TreeFarmBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.TREE_FARM_TILE.get(), pPos, pBlockState);
         this.ENERGY_USAGE = CrossFarmingConfig.TREE_FARM_ENERGY_USAGE.get();
-        initFarmSidedCaps();
+        initFarmSidedCaps(this);
     }
 
     @Override

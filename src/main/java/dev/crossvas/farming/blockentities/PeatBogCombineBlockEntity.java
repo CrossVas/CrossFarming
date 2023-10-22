@@ -6,14 +6,13 @@ import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.PeatBogCombineMenu;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,13 +21,11 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class PeatBogCombineBlockEntity extends BaseBlockEntity {
 
     public PeatBogCombineBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.PEAT_BOG_COMBINE_TILE.get(), pPos, pBlockState);
-        initCombineSidedCaps();
+        initCombineSidedCaps(this);
         this.ENERGY_USAGE = CrossFarmingConfig.PEAT_FARM_ENERGY_USAGE.get();
     }
 
@@ -109,7 +106,7 @@ public class PeatBogCombineBlockEntity extends BaseBlockEntity {
     public boolean shouldHarvest(BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.is(CrossFarmingData.CustomTags.PEAT_COMBINE_HARVESTABLE)) {
-            collectDrops(pos);
+            collectDrops(pos, CrossFarmingData.CustomTags.PEAT_COMBINE_CROPS);
             this.extractEnergy();
             level.destroyBlock(pos, false);
             level.setBlock(pos, Blocks.SAND.defaultBlockState(), Block.UPDATE_ALL);
@@ -118,25 +115,19 @@ public class PeatBogCombineBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    protected void collectDrops(BlockPos pos) {
-        for (ItemStack blockDrops : getBlockDrops(this.level, pos)) {
+    @Override
+    protected void collectDrops(BlockPos pos, TagKey<Item> whitelistItems) {
+        for (ItemStack drop : getBlockDrops(level, pos)) {
             ItemStack result;
-            if (blockDrops.is(CrossFarmingData.CustomTags.PEAT_COMBINE_CROPS)) {
-                result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, blockDrops, 0, 21, false);
+            if (drop.is(whitelistItems)) {
+                result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
             } else {
-                result = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, blockDrops, 1, 4, false);
+                result = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, 0, drop, false);
             }
 
             if (result.getCount() > 0) {
-                spawnItemStack(result, this.level, pos);
+                spawnItemStack(result, level, pos);
             }
         }
-    }
-
-    public static List<ItemStack> getBlockDrops(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        NonNullList<ItemStack> stacks = NonNullList.create();
-        stacks.addAll(Block.getDrops(state, (ServerLevel)world, pos, world.getBlockEntity(pos)));
-        return stacks;
     }
 }

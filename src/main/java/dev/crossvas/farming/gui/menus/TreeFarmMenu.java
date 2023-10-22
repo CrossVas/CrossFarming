@@ -34,7 +34,7 @@ public class TreeFarmMenu extends AbstractContainerMenu implements IEnergyHolder
         addPlayerHotbar(inv);
 
         this.TREE_FARM_TILE.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotWhiteList(handler, 0, 44, 44, CrossFarmingData.CustomTags.FARM_SOIL));
+            this.addSlot(new SlotWhiteList(handler, 0, 44, 44, CrossFarmingData.CustomTags.TREE_FARM_SOIL));
             this.addSlot(new SlotWhiteList(handler, 1, 116, 44, CrossFarmingData.CustomTags.TREE_PLANTABLE));
         });
 

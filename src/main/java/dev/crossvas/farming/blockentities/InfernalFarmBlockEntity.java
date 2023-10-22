@@ -24,7 +24,7 @@ public class InfernalFarmBlockEntity extends BaseBlockEntity {
 
     public InfernalFarmBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.INFERNAL_FARM_TILE.get(), pPos, pBlockState);
-        initFarmSidedCaps();
+        initFarmSidedCaps(this);
         this.ENERGY_USAGE = CrossFarmingConfig.INFERNAL_FARM_ENERGY_USAGE.get();
     }
 

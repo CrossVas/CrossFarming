@@ -1,5 +1,6 @@
 {
   "values": [
-    "#minecraft:crops"
+    "#minecraft:crops",
+    "#mysticalagriculture:crops"
   ]
 }

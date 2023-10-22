@@ -12,6 +12,7 @@ public class ItemStackWrappedHandler implements IItemHandlerModifiable {
     private final IItemHandlerModifiable handler;
     private final Predicate<Integer> extract;
     private final BiPredicate<Integer, ItemStack> insert;
+    protected BaseBlockEntity blockEntity;
 
     // use this for more advanced I/O rules
     public ItemStackWrappedHandler(IItemHandlerModifiable handler, Predicate<Integer> extract, BiPredicate<Integer, ItemStack> insert) {
@@ -21,8 +22,9 @@ public class ItemStackWrappedHandler implements IItemHandlerModifiable {
     }
 
     // use this for primitive I/O rules
-    public ItemStackWrappedHandler(IItemHandlerModifiable handler, boolean canExtract, boolean canInsert) {
+    public ItemStackWrappedHandler(BaseBlockEntity blockEntity, IItemHandlerModifiable handler, boolean canExtract, boolean canInsert) {
         this(handler, (index) -> canExtract, (index, stack) -> canInsert);
+        this.blockEntity = blockEntity;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
 
     public PeatBogFarmBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.PEAT_BOG_FARM_TILE.get(), pPos, pBlockState);
-        initFarmSidedCaps();
+        initFarmSidedCaps(this);
         this.ENERGY_USAGE = CrossFarmingConfig.PEAT_FARM_ENERGY_USAGE.get();
     }
 
@@ -151,7 +151,7 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldReplaceWater(BlockPos pos) {
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CrossFarmingData.PEAT_BOG_BLOCK.get())) {
+        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CrossFarmingData.CustomTags.PEAT_FARM_SOIL_BLOCK)) {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
@@ -165,7 +165,7 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
         for (ItemStack blockDrops : getBlockDrops(this.level, pos)) {
             ItemStack result = ItemStack.EMPTY;
             if (blockDrops.is(CrossFarmingData.CustomTags.PEAT_FARM_WASTE)) {
-                result = ItemHelper.insertItemStacked(ITEM_HANDLER, blockDrops, 1, 5, false);
+                result = ItemHelper.insertItemStacked(ITEM_HANDLER, 0, blockDrops, false);
             }
 
             if (result.getCount() > 0) {
