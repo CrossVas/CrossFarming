@@ -129,6 +129,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         return super.getCapability(cap, side);
     }
 
+
     public <T> List<T> getSurroundingCaps(Capability<T> capability) {
         if(this.level == null)
             return Collections.emptyList();
@@ -147,6 +148,17 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
             }
         }
         return list;
+    }
+
+    public List<BlockEntity> getSurroundingBlockEntities() {
+        if (level == null) {
+            return Collections.emptyList();
+        }
+        List<BlockEntity> entities = new ArrayList<>();
+        for(Direction face : Direction.values()) {
+            entities.add(level.getBlockEntity(getBlockPos().relative(face)));
+        }
+        return entities;
     }
 
     public void onTick() {
@@ -296,7 +308,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         for (int i = 0; i < found.size(); i++) {
             BlockPos blockPos = found.get(i);
             checked.add(blockPos);
-            for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-2, -2, -2), blockPos.offset(2, 2, 2))) {
+            for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-1, -1, -1), blockPos.offset(1, 1, 1))) {
                 // We can check contains as mutable
                 if (!checked.contains(pos)) {
                     if (!level.getBlockState(pos).isAir()) {
@@ -304,7 +316,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
                             // Make sure to add it as immutable
                             found.add(pos.immutable());
                         }
-                        if (found.size() > 32) {
+                        if (found.size() > 64) {
                             return found;
                         }
                     }
@@ -319,10 +331,13 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
             ItemStack result;
             if (drop.is(whitelistItems)) {
                  if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
-                    IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
+                    IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0);
                     result = ItemHelper.insertItemStacked(itemHandler, 0, drop, false);
+                    if (result.getCount() > 0) {
+                        result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
+                    }
                 } else {
-                    result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
+                     result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
                 }
                 if (result.getCount() > 0) {
                     spawnItemStack(result, level, pos);

@@ -135,6 +135,9 @@ public class ResinFarmBlockEntity extends BaseBlockEntity {
                         if (!resinCombine.getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
                             IItemHandler itemHandler = resinCombine.getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
                             insertedStack = ItemHelper.insertItemStacked(itemHandler, 0, drop, false);
+                            if (insertedStack.getCount() > 0) {
+                                insertedStack = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, 0, drop, false);
+                            }
                         } else {
                             insertedStack = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, 0, drop, false);
                         }

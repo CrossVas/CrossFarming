@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -120,9 +122,17 @@ public class PeatBogCombineBlockEntity extends BaseBlockEntity {
         for (ItemStack drop : getBlockDrops(level, pos)) {
             ItemStack result;
             if (drop.is(whitelistItems)) {
-                result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
+                if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
+                    IItemHandler handler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0);
+                    result = ItemHelper.insertItemStacked(handler, 0, drop, false);
+                    if (result.getCount() > 0) {
+                        result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
+                    }
+                } else {
+                    result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
+                }
             } else {
-                result = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, 0, drop, false);
+                result = ItemHelper.insertItemStacked(mainFarm.ITEM_HANDLER, 1, drop, false);
             }
 
             if (result.getCount() > 0) {

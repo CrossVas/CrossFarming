@@ -124,6 +124,9 @@ public class TreeCombineBlockEntity extends BaseBlockEntity {
                     if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
                         IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
                         collected = ItemHelper.insertItemStacked(itemHandler, 0, item.getItem(), false);
+                        if (collected.getCount() > 0) {
+                            collected = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, item.getItem(), false);
+                        }
                     } else {
                         collected = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, item.getItem(), false);
                     }

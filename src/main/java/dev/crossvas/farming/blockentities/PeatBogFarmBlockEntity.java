@@ -6,16 +6,13 @@ import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.PeatBogFarmMenu;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -167,18 +164,10 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
             if (blockDrops.is(CrossFarmingData.CustomTags.PEAT_FARM_WASTE)) {
                 result = ItemHelper.insertItemStacked(ITEM_HANDLER, 0, blockDrops, false);
             }
-
             if (result.getCount() > 0) {
                 spawnItemStack(result, this.level, pos);
             }
         }
-    }
-
-    public static List<ItemStack> getBlockDrops(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        NonNullList<ItemStack> stacks = NonNullList.create();
-        stacks.addAll(Block.getDrops(state, (ServerLevel)world, pos, world.getBlockEntity(pos)));
-        return stacks;
     }
 
     @Override

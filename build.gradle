@@ -151,7 +151,7 @@ dependencies {
     implementation fg.deobf("curse.maven:themillmanlib-575288:4059787")
     implementation fg.deobf("curse.maven:ic2-classic-242942:4746971")
     implementation fg.deobf("curse.maven:carbon-config-898104:4807518")
-    runtimeOnly fg.deobf("mekanism:Mekanism:1.19.2-10.3.8.477")
+    implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.8.477")
 
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:8.3.103")
     implementation fg.deobf("dev.architectury:architectury-forge:6.5.85")
