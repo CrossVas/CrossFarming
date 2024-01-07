@@ -1,4 +1,4 @@
-// 1.19.2	2024-01-07T17:45:43.8197456	Tags for minecraft:item
+// 1.19.2	2024-01-07T21:21:19.8545231	Tags for minecraft:item
 459ca9f0ebb9cea63ddb360c3a40876cc05de011 data/cross_farming/tags/items/cocoa/harvestable.json
 47e33a540a81c77d7b87cf7d474adab4df4c2581 data/cross_farming/tags/items/crop/harvestable.json
 d19716e84fd2bf292979e5f027315bd5ee87f0e2 data/cross_farming/tags/items/crop/plantable.json
@@ -14,3 +14,4 @@ f2f67404a6101eb7202c60c8178e020af0969d5b data/cross_farming/tags/items/resin/har
 7748e11b520c50e62971c7eaaa97ad5a24a4ed0e data/cross_farming/tags/items/tree/harvestable.json
 347d7db9633b91359c616fd62d97385b7de8bc73 data/cross_farming/tags/items/tree/plantable.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/items/tree/soil.json
+c87d1b7f6966a8ee2f0fa09f6852ff82e512ba4b data/minecraft/tags/items/coals.json

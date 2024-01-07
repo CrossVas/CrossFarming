@@ -2,28 +2,31 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "cross_farming:peat"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "minecraft:dirt"
         }
       ],
-      "functions": [
-        {
-          "function": "minecraft:set_count",
-          "count": 2
-        }
-      ]
+      "rolls": 1.0
     }
   ]
 }

@@ -1,4 +1,4 @@
-// 1.19.2	2024-01-07T17:13:30.8840377	Tags for minecraft:block
+// 1.19.2	2024-01-07T21:26:00.0648717	Tags for minecraft:block
 90422ea5f5b8cdab3b193c8c88ae0727ef9143b0 data/cross_farming/tags/blocks/cocoa/harvestable.json
 b147fcff5c0b4d72df1cb7809b063b2562180832 data/cross_farming/tags/blocks/crop/harvestable.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/blocks/crop/soil.json
@@ -10,3 +10,4 @@ d1ff7d10a3786a51cfb058e5cb21bd40ea006696 data/cross_farming/tags/blocks/peat/har
 63350c5ba05069a8c8da172bf67b3fcb47ae24f2 data/cross_farming/tags/blocks/succulent/harvestable.json
 7f9cfd6a637eed0cc64b7e0af4efa110af26179e data/cross_farming/tags/blocks/tree/harvestable.json
 69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/blocks/tree/soil.json
+33148c5f61297f6d8cedb717d7ddb65128cf4338 data/minecraft/tags/blocks/mineable/pickaxe.json
