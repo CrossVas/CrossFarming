@@ -3,6 +3,7 @@ package dev.crossvas.farming.blockentities;
 import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
+import dev.crossvas.farming.utils.CustomTags;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -131,7 +132,7 @@ public class ResinFarmBlockEntity extends BaseBlockEntity {
             } else {
                 if (mainFarm instanceof ResinCombineBlockEntity resinCombine) {
                     ItemStack insertedStack;
-                    if (drop.is(CrossFarmingData.CustomTags.RESIN_CROPS)) {
+                    if (drop.is(CustomTags.ITEM_RESIN_HARVESTABLE)) {
                         if (!resinCombine.getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
                             IItemHandler itemHandler = resinCombine.getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
                             insertedStack = ItemHelper.insertItemStacked(itemHandler, 0, drop, false);

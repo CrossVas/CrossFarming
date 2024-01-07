@@ -164,50 +164,50 @@ public class CrossFarmingData {
         }
     }
 
-    public static class CustomTags {
-
-        public static final TagKey<Item> FARM_SEEDS = createItemTag("crops/farm/seeds");
-        public static final TagKey<Item> FARM_CROPS = createItemTag("crops/farm/crops");
-        public static final TagKey<Block> FARM_CROPS_BLOCK = createBlockTag("crops/farm/crops");
-        public static final TagKey<Item> FARM_SOIL = createItemTag("crops/farm/soil");
-        public static final TagKey<Block> FARM_SOIL_BLOCK = createBlockTag("crops/farm/soil");
-
-        public static final TagKey<Item> RESIN_CROPS = createItemTag("resin/farm/crops");
-
-        public static final TagKey<Item> TREE_PLANTABLE = createItemTag("tree/farm/plantable");
-
-        public static final TagKey<Item> TREE_FARM_SOIL = createItemTag("tree/farm/soil");
-        public static final TagKey<Block> TREE_FARM_SOIL_BLOCK = createBlockTag("tree/farm/soil");
-        public static final TagKey<Item> TREE_FARM_CROPS = createItemTag("tree/combine/crops");
-
-        public static final TagKey<Item> GOURD_COMBINE_CROPS = createItemTag("gourd/combine/crops");
-        public static final TagKey<Block> GOURD_COMBINE_CROPS_BLOCK = createBlockTag("gourd/combine/crops");
-        public static final TagKey<Item> SUCCULENT_COMBINE_CROPS = createItemTag("succulent/combine/crops");
-        public static final TagKey<Block> SUCCULENT_COMBINE_CROPS_BLOCK = createBlockTag("succulent/combine/crops");
-
-        public static final TagKey<Item> NETHER_FARM_CROPS = createItemTag("nether/combine/crops");
-        public static final TagKey<Block> NETHER_FARM_CROPS_BLOCK = createBlockTag("nether/combine/crops");
-        public static final TagKey<Block> NETHER_FARM_SOIL_BLOCK = createBlockTag("nether/combine/soil");
-
-        public static final TagKey<Item> PEAT_FARM_SOIL = createItemTag("peat/farm/soil");
-        public static final TagKey<Item> PEAT_FARM_WASTE = createItemTag("peat/farm/waste");
-        public static final TagKey<Block> PEAT_FARM_SOIL_BLOCK = createBlockTag("peat/farm/soil");
-
-        public static final TagKey<Item> PEAT_COMBINE_CROPS = createItemTag("peat/combine/crops");
-        public static final TagKey<Block> PEAT_COMBINE_HARVESTABLE = createBlockTag("peat/combine/harvestable");
-        public static final TagKey<Item> COCOA_COMBINE_HARVESTABLE = createItemTag("cocoa/combine/harvestable");
-        public static final TagKey<Block> INFERNAL_COMBINE_HARVESTABLE = createBlockTag("infernal/combine/harvestable");
-
-        public static final TagKey<Item> INFERNAL_FARM_SOIL = createItemTag("infernal/farm/soil");
-        public static final TagKey<Block> INFERNAL_FARM_SOIL_BLOCK = createBlockTag("infernal/farm/soil");
-        public static final TagKey<Item> INFERNAL_FARM_SEEDS = createItemTag("infernal/farm/seeds");
-
-        public static TagKey<Item> createItemTag(String path) {
-            return ItemTags.create(new ResourceLocation(CrossFarming.ID, path));
-        }
-
-        public static TagKey<Block> createBlockTag(String path) {
-            return BlockTags.create(new ResourceLocation(CrossFarming.ID, path));
-        }
-    }
+//    public static class CustomTags {
+//
+//        public static final TagKey<Item> FARM_SEEDS = createItemTag("crops/farm/seeds");
+//        public static final TagKey<Item> FARM_CROPS = createItemTag("crops/farm/crops");
+//        public static final TagKey<Block> FARM_CROPS_BLOCK = createBlockTag("crops/farm/crops");
+//        public static final TagKey<Item> FARM_SOIL = createItemTag("crops/farm/soil");
+//        public static final TagKey<Block> FARM_SOIL_BLOCK = createBlockTag("crops/farm/soil");
+//
+//        public static final TagKey<Item> RESIN_CROPS = createItemTag("resin/farm/crops");
+//
+//        public static final TagKey<Item> TREE_PLANTABLE = createItemTag("tree/farm/plantable");
+//
+//        public static final TagKey<Item> TREE_FARM_SOIL = createItemTag("tree/farm/soil");
+//        public static final TagKey<Block> TREE_FARM_SOIL_BLOCK = createBlockTag("tree/farm/soil");
+//        public static final TagKey<Item> TREE_FARM_CROPS = createItemTag("tree/combine/crops");
+//
+//        public static final TagKey<Item> GOURD_COMBINE_CROPS = createItemTag("gourd/combine/crops");
+//        public static final TagKey<Block> GOURD_COMBINE_CROPS_BLOCK = createBlockTag("gourd/combine/crops");
+//        public static final TagKey<Item> SUCCULENT_COMBINE_CROPS = createItemTag("succulent/combine/crops");
+//        public static final TagKey<Block> SUCCULENT_COMBINE_CROPS_BLOCK = createBlockTag("succulent/combine/crops");
+//
+//        public static final TagKey<Item> NETHER_FARM_CROPS = createItemTag("nether/combine/crops");
+//        public static final TagKey<Block> NETHER_FARM_CROPS_BLOCK = createBlockTag("nether/combine/crops");
+//        public static final TagKey<Block> NETHER_FARM_SOIL_BLOCK = createBlockTag("nether/combine/soil");
+//
+//        public static final TagKey<Item> PEAT_FARM_SOIL = createItemTag("peat/farm/soil");
+//        public static final TagKey<Item> PEAT_FARM_WASTE = createItemTag("peat/farm/waste");
+//        public static final TagKey<Block> PEAT_FARM_SOIL_BLOCK = createBlockTag("peat/farm/soil");
+//
+//        public static final TagKey<Item> PEAT_COMBINE_CROPS = createItemTag("peat/combine/crops");
+//        public static final TagKey<Block> PEAT_COMBINE_HARVESTABLE = createBlockTag("peat/combine/harvestable");
+//        public static final TagKey<Item> COCOA_COMBINE_HARVESTABLE = createItemTag("cocoa/combine/harvestable");
+//        public static final TagKey<Block> INFERNAL_COMBINE_HARVESTABLE = createBlockTag("infernal/combine/harvestable");
+//
+//        public static final TagKey<Item> INFERNAL_FARM_SOIL = createItemTag("infernal/farm/soil");
+//        public static final TagKey<Block> INFERNAL_FARM_SOIL_BLOCK = createBlockTag("infernal/farm/soil");
+//        public static final TagKey<Item> INFERNAL_FARM_SEEDS = createItemTag("infernal/farm/seeds");
+//
+//        public static TagKey<Item> createItemTag(String path) {
+//            return ItemTags.create(new ResourceLocation(CrossFarming.ID, path));
+//        }
+//
+//        public static TagKey<Block> createBlockTag(String path) {
+//            return BlockTags.create(new ResourceLocation(CrossFarming.ID, path));
+//        }
+//    }
 }

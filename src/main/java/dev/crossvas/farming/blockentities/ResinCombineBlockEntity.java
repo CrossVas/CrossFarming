@@ -3,6 +3,7 @@ package dev.crossvas.farming.blockentities;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.ResinCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -50,7 +51,7 @@ public class ResinCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(CrossFarmingData.CustomTags.RESIN_CROPS);
+                return stack.is(CustomTags.ITEM_RESIN_HARVESTABLE);
             }
         };
     }

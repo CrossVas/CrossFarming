@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.CropFarmBlockEntity;
 import dev.crossvas.farming.gui.menus.base.IEnergyHolderMenu;
 import dev.crossvas.farming.gui.slots.SlotWhiteList;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,8 +35,8 @@ public class CropFarmMenu extends AbstractContainerMenu implements IEnergyHolder
         addPlayerHotbar(inv);
 
         this.CROP_FARM_TILE.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotWhiteList(handler, 0, 44, 44, CrossFarmingData.CustomTags.FARM_SOIL));
-            this.addSlot(new SlotWhiteList(handler, 1, 116, 44, CrossFarmingData.CustomTags.FARM_SEEDS));
+            this.addSlot(new SlotWhiteList(handler, 0, 44, 44, CustomTags.ITEM_CROP_SOIL));
+            this.addSlot(new SlotWhiteList(handler, 1, 116, 44, CustomTags.ITEM_CROP_PLANTABLE));
         });
 
         this.addDataSlots(data);

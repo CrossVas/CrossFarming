@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.TreeFarmMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -62,8 +63,8 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch (slot) {
-                    case 0 -> stack.is(CrossFarmingData.CustomTags.FARM_SOIL);
-                    case 1 -> stack.is(CrossFarmingData.CustomTags.TREE_PLANTABLE);
+                    case 0 -> stack.is(CustomTags.ITEM_TREE_SOIL);
+                    case 1 -> stack.is(CustomTags.ITEM_TREE_PLANTABLE);
                     default -> super.isItemValid(slot, stack);
                 };
             }
@@ -102,7 +103,8 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
 
             if (platformBuilt && seconds == CrossFarmingConfig.TREE_FARM_SECONDS_TICK.get()) {
                 for (BlockPos checkPos : getWorkingSpace(getBlockPos(), farmRange)) {
-                    if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos) && level.getBlockState(checkPos).is(CrossFarmingData.CustomTags.TREE_FARM_SOIL_BLOCK)) {
+                    if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos)
+                            && level.getBlockState(checkPos).is(CustomTags.BLOCK_TREE_SOIL)) {
                         if (hasEnergyToWork() && saplingStack.is(ItemTags.SAPLINGS)) {
                             if (saplingStack.getItem() instanceof BlockItem blockItem) {
                                 Block sapling = blockItem.getBlock();
@@ -124,7 +126,7 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
                 seconds = 0;
                 for (BlockPos pos : getWorkingSpace(getBlockPos(), farmRange)) {
                     if (!getWorkingSpace(getBlockPos(), farmArea).contains(pos)) {
-                        if (hasEnergyToWork() && dirtStack.is(CrossFarmingData.CustomTags.TREE_FARM_SOIL)) {
+                        if (hasEnergyToWork() && dirtStack.is(CustomTags.ITEM_TREE_SOIL)) {
                             if (shouldReplace(pos) ) {
                                 dirtStack.shrink(1);
                                 this.soilCounter++;
@@ -144,7 +146,7 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldReplace(BlockPos pos) {
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(CrossFarmingData.CustomTags.TREE_FARM_SOIL_BLOCK)) {
+        if (!state.is(CustomTags.BLOCK_TREE_SOIL)) {
             level.destroyBlock(pos, true);
             level.setBlock(pos, Blocks.DIRT.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);

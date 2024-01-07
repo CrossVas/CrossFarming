@@ -4,13 +4,13 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.CocoaCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
@@ -57,7 +57,7 @@ public class CocoaCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(Items.COCOA_BEANS);
+                return stack.is(CustomTags.ITEM_COCOA_HARVESTABLE);
             }
         };
     }
@@ -104,7 +104,7 @@ public class CocoaCombineBlockEntity extends BaseBlockEntity {
     public boolean shouldReplace(BlockPos pos) {
         BlockState cocoaState = level.getBlockState(pos);
         if (cocoaState.getValue(CocoaBlock.AGE) == CocoaBlock.MAX_AGE) {
-            collectDrops(pos, CrossFarmingData.CustomTags.COCOA_COMBINE_HARVESTABLE);
+            collectDrops(pos, CustomTags.ITEM_COCOA_HARVESTABLE);
             this.extractEnergy();
             level.setBlockAndUpdate(pos, cocoaState.setValue(CocoaBlock.AGE, 0));
             return true;

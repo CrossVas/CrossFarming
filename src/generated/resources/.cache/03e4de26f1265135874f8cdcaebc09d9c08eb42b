@@ -1,0 +1,16 @@
+// 1.19.2	2024-01-07T17:45:43.8197456	Tags for minecraft:item
+459ca9f0ebb9cea63ddb360c3a40876cc05de011 data/cross_farming/tags/items/cocoa/harvestable.json
+47e33a540a81c77d7b87cf7d474adab4df4c2581 data/cross_farming/tags/items/crop/harvestable.json
+d19716e84fd2bf292979e5f027315bd5ee87f0e2 data/cross_farming/tags/items/crop/plantable.json
+69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/items/crop/soil.json
+034e63ec38ce35b783571403975439ffed02bf7d data/cross_farming/tags/items/gourd/harvestable.json
+619ce19928c77e6032874a963dc50c6f8e32cb38 data/cross_farming/tags/items/infernal/harvestable.json
+b4727e6ebe055c567441285ae565462a8b1e4abc data/cross_farming/tags/items/infernal/soil.json
+ee848c68e26a03ee4f08eb3cb12c3ef89d74f91b data/cross_farming/tags/items/peat/harvestable.json
+9373fa0408cc044e9ffd71b9ce41556ea1e7b7b5 data/cross_farming/tags/items/peat/soil.json
+4a6f7d381687421e7c575c64731c81dd813e4abf data/cross_farming/tags/items/peat/waste.json
+f2f67404a6101eb7202c60c8178e020af0969d5b data/cross_farming/tags/items/resin/harvestable.json
+63350c5ba05069a8c8da172bf67b3fcb47ae24f2 data/cross_farming/tags/items/succulent/harvestable.json
+7748e11b520c50e62971c7eaaa97ad5a24a4ed0e data/cross_farming/tags/items/tree/harvestable.json
+347d7db9633b91359c616fd62d97385b7de8bc73 data/cross_farming/tags/items/tree/plantable.json
+69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/items/tree/soil.json

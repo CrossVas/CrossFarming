@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.GourdCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -47,7 +48,7 @@ public class GourdCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(CrossFarmingData.CustomTags.GOURD_COMBINE_CROPS);
+                return stack.is(CustomTags.ITEM_GOURD_HARVESTABLE);
             }
         };
     }
@@ -84,8 +85,8 @@ public class GourdCombineBlockEntity extends BaseBlockEntity {
 
     public boolean shouldHarvest(BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        if (state.is(CrossFarmingData.CustomTags.GOURD_COMBINE_CROPS_BLOCK)) {
-            collectDrops(pos, CrossFarmingData.CustomTags.GOURD_COMBINE_CROPS);
+        if (state.is(CustomTags.BLOCK_GOURD_HARVESTABLE)) {
+            collectDrops(pos, CustomTags.ITEM_GOURD_HARVESTABLE);
             this.extractEnergy();
             level.destroyBlock(pos, false);
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);

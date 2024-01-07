@@ -150,17 +150,6 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         return list;
     }
 
-    public List<BlockEntity> getSurroundingBlockEntities() {
-        if (level == null) {
-            return Collections.emptyList();
-        }
-        List<BlockEntity> entities = new ArrayList<>();
-        for(Direction face : Direction.values()) {
-            entities.add(level.getBlockEntity(getBlockPos().relative(face)));
-        }
-        return entities;
-    }
-
     public void onTick() {
         if (!hasEnergyToWork()) {
             return;
@@ -331,8 +320,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
             ItemStack result;
             if (drop.is(whitelistItems)) {
                  if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
-                    IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0);
-                    result = ItemHelper.insertItemStacked(itemHandler, 0, drop, false);
+                    result = ItemHelper.insertItemStacked(getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0), 0, drop, false);
                     if (result.getCount() > 0) {
                         result = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, drop, false);
                     }

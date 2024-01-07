@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.TreeCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -35,7 +36,8 @@ public class TreeCombineBlockEntity extends BaseBlockEntity {
             return false;
         }
         CompoundTag data = item.getPersistentData();
-        return (!data.getBoolean("PreventRemoteMovement") || data.getBoolean("AllowMachineRemoteMovement")) && item.getItem().is(CrossFarmingData.CustomTags.TREE_FARM_CROPS);
+        return (!data.getBoolean("PreventRemoteMovement") || data.getBoolean("AllowMachineRemoteMovement"))
+                && (item.getItem().is(CustomTags.ITEM_TREE_HARVESTABLE) || item.getItem().is(CustomTags.ITEM_TREE_PLANTABLE));
     };
 
     public TreeCombineBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -66,7 +68,7 @@ public class TreeCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(CrossFarmingData.CustomTags.TREE_FARM_CROPS);
+                return stack.is(CustomTags.ITEM_TREE_PLANTABLE) || stack.is(CustomTags.ITEM_TREE_HARVESTABLE);
             }
         };
     }
@@ -145,7 +147,7 @@ public class TreeCombineBlockEntity extends BaseBlockEntity {
     public boolean shouldHarvest(BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.is(BlockTags.LOGS)) {
-            collectDrops(pos, CrossFarmingData.CustomTags.TREE_FARM_CROPS);
+            collectDrops(pos, CustomTags.ITEM_TREE_HARVESTABLE);
             level.destroyBlock(pos, false);
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             this.extractEnergy();

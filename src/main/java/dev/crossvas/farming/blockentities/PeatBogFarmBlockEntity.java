@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.PeatBogFarmMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -61,8 +62,8 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch (slot) {
-                    case 0 -> stack.is(CrossFarmingData.CustomTags.PEAT_FARM_SOIL);
-                    case 1, 2, 3, 4 -> stack.is(CrossFarmingData.CustomTags.PEAT_FARM_WASTE);
+                    case 0 -> stack.is(CustomTags.ITEM_PEAT_SOIL);
+                    case 1, 2, 3, 4 -> stack.is(CustomTags.ITEM_PEAT_HARVESTABLE);
                     default -> super.isItemValid(slot, stack);
                 };
             }
@@ -148,7 +149,7 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldReplaceWater(BlockPos pos) {
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CrossFarmingData.CustomTags.PEAT_FARM_SOIL_BLOCK)) {
+        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CustomTags.BLOCK_PEAT_SOIL)) {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
@@ -161,7 +162,7 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
     protected void collectDrops(BlockPos pos) {
         for (ItemStack blockDrops : getBlockDrops(this.level, pos)) {
             ItemStack result = ItemStack.EMPTY;
-            if (blockDrops.is(CrossFarmingData.CustomTags.PEAT_FARM_WASTE)) {
+            if (blockDrops.is(CustomTags.ITEM_PEAT_HARVESTABLE)) {
                 result = ItemHelper.insertItemStacked(ITEM_HANDLER, 0, blockDrops, false);
             }
             if (result.getCount() > 0) {

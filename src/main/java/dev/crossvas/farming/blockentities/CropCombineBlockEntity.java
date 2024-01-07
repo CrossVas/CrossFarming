@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.CropCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -50,7 +51,7 @@ public class CropCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(CrossFarmingData.CustomTags.FARM_CROPS) || stack.is(CrossFarmingData.CustomTags.FARM_SEEDS);
+                return stack.is(CustomTags.ITEM_CROP_HARVESTABLE) || stack.is(CustomTags.ITEM_CROP_PLANTABLE);
             }
         };
     }
@@ -102,7 +103,7 @@ public class CropCombineBlockEntity extends BaseBlockEntity {
             return false;
         } else if (state.getBlock() instanceof IPlantable && state.getBlock() instanceof CropBlock) {
             if (state.getValue(CropBlock.AGE) == CropBlock.MAX_AGE) {
-                collectDrops(pos, CrossFarmingData.CustomTags.FARM_CROPS);
+                collectDrops(pos, CustomTags.ITEM_CROP_HARVESTABLE);
                 level.destroyBlock(pos, false);
                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
                 this.extractEnergy();

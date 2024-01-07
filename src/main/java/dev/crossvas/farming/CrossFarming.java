@@ -1,7 +1,7 @@
 package dev.crossvas.farming;
 
 import dev.crossvas.farming.utils.data.DataGenerator;
-import dev.crossvas.farming.utils.data.providers.RecipeConditions;
+import dev.crossvas.farming.utils.data.RecipeConditions;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;

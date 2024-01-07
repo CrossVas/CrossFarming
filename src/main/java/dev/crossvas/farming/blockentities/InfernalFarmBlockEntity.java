@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.InfernalFarmMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -50,8 +51,8 @@ public class InfernalFarmBlockEntity extends BaseBlockEntity {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch (slot) {
-                    case 0 -> stack.is(CrossFarmingData.CustomTags.INFERNAL_FARM_SOIL);
-                    case 1 -> stack.is(CrossFarmingData.CustomTags.INFERNAL_FARM_SEEDS);
+                    case 0 -> stack.is(CustomTags.ITEM_INFERNAL_SOIL);
+                    case 1 -> stack.is(CustomTags.ITEM_INFERNAL_HARVESTABLE);
                     default -> super.isItemValid(slot, stack);
                 };
             }
@@ -84,9 +85,10 @@ public class InfernalFarmBlockEntity extends BaseBlockEntity {
                 }
 
                 if (platformBuilt && seconds == CrossFarmingConfig.INFERNAL_FARM_SECONDS_TICK.get()) {
-                    if (seedStack.is(CrossFarmingData.CustomTags.INFERNAL_FARM_SEEDS)) {
+                    if (seedStack.is(CustomTags.ITEM_INFERNAL_HARVESTABLE)) {
                         for (BlockPos checkPos : getWorkingSpace(getBlockPos(), farmRange)) {
-                            if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos) && level.getBlockState(checkPos).is(CrossFarmingData.CustomTags.INFERNAL_FARM_SOIL_BLOCK)) {
+                            if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos)
+                                    && level.getBlockState(checkPos).is(CustomTags.BLOCK_INFERNAL_SOIL)) {
                                 if (hasEnergyToWork()) {
                                     if (seedStack.getItem() instanceof BlockItem blockItem) {
                                         Block cropBlock = blockItem.getBlock();
@@ -109,7 +111,7 @@ public class InfernalFarmBlockEntity extends BaseBlockEntity {
                     seconds = 0;
                     for (BlockPos pos : getWorkingSpace(getBlockPos(), farmRange)) {
                         if (!getWorkingSpace(getBlockPos(), farmArea).contains(pos)) {
-                            if (hasEnergyToWork() && soilStack.is(CrossFarmingData.CustomTags.INFERNAL_FARM_SOIL)) {
+                            if (hasEnergyToWork() && soilStack.is(CustomTags.ITEM_INFERNAL_SOIL)) {
                                 if (shouldReplace(pos)) {
                                     soilStack.shrink(1);
                                     this.soilCounter++;
@@ -143,7 +145,7 @@ public class InfernalFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldPlant(BlockPos pos, Block cropBlock) {
         BlockState state = level.getBlockState(pos);
-        if (!state.is(CrossFarmingData.CustomTags.INFERNAL_COMBINE_HARVESTABLE)) {
+        if (!state.is(CustomTags.BLOCK_INFERNAL_HARVESTABLE)) {
             level.setBlock(pos, cropBlock.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();

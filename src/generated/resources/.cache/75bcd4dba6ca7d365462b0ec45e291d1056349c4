@@ -1,0 +1,12 @@
+// 1.19.2	2024-01-07T17:13:30.8840377	Tags for minecraft:block
+90422ea5f5b8cdab3b193c8c88ae0727ef9143b0 data/cross_farming/tags/blocks/cocoa/harvestable.json
+b147fcff5c0b4d72df1cb7809b063b2562180832 data/cross_farming/tags/blocks/crop/harvestable.json
+69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/blocks/crop/soil.json
+e1a95d2c7ec985db5495bd5c0b256bc625022152 data/cross_farming/tags/blocks/gourd/harvestable.json
+619ce19928c77e6032874a963dc50c6f8e32cb38 data/cross_farming/tags/blocks/infernal/harvestable.json
+b4727e6ebe055c567441285ae565462a8b1e4abc data/cross_farming/tags/blocks/infernal/soil.json
+d1ff7d10a3786a51cfb058e5cb21bd40ea006696 data/cross_farming/tags/blocks/peat/harvestable.json
+9373fa0408cc044e9ffd71b9ce41556ea1e7b7b5 data/cross_farming/tags/blocks/peat/soil.json
+63350c5ba05069a8c8da172bf67b3fcb47ae24f2 data/cross_farming/tags/blocks/succulent/harvestable.json
+7f9cfd6a637eed0cc64b7e0af4efa110af26179e data/cross_farming/tags/blocks/tree/harvestable.json
+69c396cb051bbe9a130e6979b67065e5041b179d data/cross_farming/tags/blocks/tree/soil.json

@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.PeatBogCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -47,7 +48,7 @@ public class PeatBogCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(CrossFarmingData.CustomTags.FARM_CROPS) || stack.is(CrossFarmingData.CustomTags.PEAT_COMBINE_CROPS);
+                return stack.is(CustomTags.ITEM_PEAT_HARVESTABLE);
             }
         };
     }
@@ -107,8 +108,8 @@ public class PeatBogCombineBlockEntity extends BaseBlockEntity {
 
     public boolean shouldHarvest(BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        if (state.is(CrossFarmingData.CustomTags.PEAT_COMBINE_HARVESTABLE)) {
-            collectDrops(pos, CrossFarmingData.CustomTags.PEAT_COMBINE_CROPS);
+        if (state.is(CustomTags.BLOCK_PEAT_HARVESTABLE)) {
+            collectDrops(pos, CustomTags.ITEM_PEAT_HARVESTABLE);
             this.extractEnergy();
             level.destroyBlock(pos, false);
             level.setBlock(pos, Blocks.SAND.defaultBlockState(), Block.UPDATE_ALL);

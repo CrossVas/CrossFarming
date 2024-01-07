@@ -5,6 +5,7 @@ import dev.crossvas.farming.blockentities.PeatBogFarmBlockEntity;
 import dev.crossvas.farming.gui.menus.base.IEnergyHolderMenu;
 import dev.crossvas.farming.gui.slots.SlotOutput;
 import dev.crossvas.farming.gui.slots.SlotWhiteList;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -35,11 +36,11 @@ public class PeatBogFarmMenu extends AbstractContainerMenu implements IEnergyHol
         addPlayerHotbar(inv);
 
         this.PEAT_FARM_TILE.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotWhiteList(handler, 0, 44, 44, CrossFarmingData.CustomTags.PEAT_FARM_SOIL));
-            this.addSlot(new SlotOutput(handler, 1, 107, 35, CrossFarmingData.CustomTags.PEAT_FARM_WASTE));
-            this.addSlot(new SlotOutput(handler, 2, 125, 35, CrossFarmingData.CustomTags.PEAT_FARM_WASTE));
-            this.addSlot(new SlotOutput(handler, 3, 107, 53, CrossFarmingData.CustomTags.PEAT_FARM_WASTE));
-            this.addSlot(new SlotOutput(handler, 4, 125, 53, CrossFarmingData.CustomTags.PEAT_FARM_WASTE));
+            this.addSlot(new SlotWhiteList(handler, 0, 44, 44, CustomTags.ITEM_PEAT_SOIL));
+            this.addSlot(new SlotOutput(handler, 1, 107, 35, CustomTags.ITEM_PEAT_WASTE));
+            this.addSlot(new SlotOutput(handler, 2, 125, 35, CustomTags.ITEM_PEAT_WASTE));
+            this.addSlot(new SlotOutput(handler, 3, 107, 53, CustomTags.ITEM_PEAT_WASTE));
+            this.addSlot(new SlotOutput(handler, 4, 125, 53, CustomTags.ITEM_PEAT_WASTE));
         });
 
         this.addDataSlots(data);

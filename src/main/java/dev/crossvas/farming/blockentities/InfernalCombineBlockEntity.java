@@ -4,6 +4,7 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.InfernalCombineMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -51,7 +52,7 @@ public class InfernalCombineBlockEntity extends BaseBlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return stack.is(CrossFarmingData.CustomTags.INFERNAL_FARM_SEEDS);
+                return stack.is(CustomTags.ITEM_INFERNAL_HARVESTABLE);
             }
         };
     }
@@ -90,7 +91,8 @@ public class InfernalCombineBlockEntity extends BaseBlockEntity {
                 if (mainFarm != null && seconds == CrossFarmingConfig.INFERNAL_COMBINE_SECONDS_TICK.get()) {
                     seconds = 0;
                     for (BlockPos workPos : getWorkingSpace(mainFarm.getBlockPos(), 7)) {
-                        if (!getWorkingSpace(mainFarm.getBlockPos(), 4).contains(workPos) && level.getBlockState(workPos).is(CrossFarmingData.CustomTags.INFERNAL_FARM_SOIL_BLOCK)) {
+                        if (!getWorkingSpace(mainFarm.getBlockPos(), 4).contains(workPos)
+                                && level.getBlockState(workPos).is(CustomTags.BLOCK_INFERNAL_SOIL)) {
                             if (hasEnergyToWork()) {
                                 if (shouldReplace(workPos.above())) {
                                     setChanged();
@@ -111,7 +113,7 @@ public class InfernalCombineBlockEntity extends BaseBlockEntity {
     public boolean shouldReplace(BlockPos pos) {
         BlockState cropState = level.getBlockState(pos);
         if (!cropState.isAir() && cropState.getValue(NetherWartBlock.AGE) == NetherWartBlock.MAX_AGE) {
-            collectDrops(pos, CrossFarmingData.CustomTags.INFERNAL_FARM_SEEDS);
+            collectDrops(pos, CustomTags.ITEM_INFERNAL_HARVESTABLE);
             level.destroyBlock(pos, false);
             level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             this.extractEnergy();

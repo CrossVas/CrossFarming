@@ -4,11 +4,11 @@ import dev.crossvas.farming.CrossFarmingConfig;
 import dev.crossvas.farming.CrossFarmingData;
 import dev.crossvas.farming.blockentities.base.BaseBlockEntity;
 import dev.crossvas.farming.gui.menus.CropFarmMenu;
+import dev.crossvas.farming.utils.CustomTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -65,8 +65,8 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch (slot) {
-                    case 0 -> stack.is(CrossFarmingData.CustomTags.FARM_SOIL);
-                    case 1 -> stack.is(CrossFarmingData.CustomTags.FARM_SEEDS);
+                    case 0 -> stack.is(CustomTags.ITEM_CROP_SOIL);
+                    case 1 -> stack.is(CustomTags.ITEM_CROP_PLANTABLE);
                     default -> super.isItemValid(slot, stack);
                 };
             }
@@ -97,9 +97,10 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
 
              // check for seeds
             if (platformBuilt && seconds == CrossFarmingConfig.CROP_FARM_SECONDS_TICK.get()) {
-                if (seedStack.is(CrossFarmingData.CustomTags.FARM_SEEDS)) {
+                if (seedStack.is(CustomTags.ITEM_CROP_PLANTABLE)) {
                     for (BlockPos checkPos : getWorkingSpace(getBlockPos(), farmRange)) {
-                        if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos) && !getWaterBlockPos(getBlockPos(), farmRange).contains(checkPos) && level.getBlockState(checkPos).is(CrossFarmingData.CustomTags.FARM_SOIL_BLOCK)) {
+                        if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos) && !getWaterBlockPos(getBlockPos(), farmRange).contains(checkPos)
+                                && level.getBlockState(checkPos).is(CustomTags.BLOCK_CROP_SOIL)) {
                             if (hasEnergyToWork()) {
                                 if (seedStack.getItem() instanceof BlockItem blockItem) {
                                     Block cropBlock = blockItem.getBlock();
@@ -122,7 +123,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
                 seconds = 0;
                 for (BlockPos pos : getWorkingSpace(getBlockPos(), farmRange)) {
                     if (!getWorkingSpace(getBlockPos(), farmArea).contains(pos) && !getWaterBlockPos(getBlockPos(), farmRange).contains(pos)) {
-                        if (hasEnergyToWork() && dirtStack.is(CrossFarmingData.CustomTags.FARM_SOIL)) {
+                        if (hasEnergyToWork() && dirtStack.is(CustomTags.ITEM_CROP_SOIL)) {
                             if (dirtStack.getItem() instanceof BlockItem blockItem) {
                                 Block soil = blockItem.getBlock();
                                 if (shouldReplace(pos, soil)) {
@@ -161,7 +162,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldReplaceWater(BlockPos pos) {
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CrossFarmingData.CustomTags.FARM_SOIL_BLOCK) && hasEnergyToWork()) {
+        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CustomTags.BLOCK_CROP_SOIL) && hasEnergyToWork()) {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
@@ -174,7 +175,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
     public boolean shouldReplace(BlockPos pos, Block block) {
         Block FARMLAND = Blocks.FARMLAND;
         BlockState state = this.level.getBlockState(pos);
-        if (!state.is(CrossFarmingData.CustomTags.FARM_SOIL_BLOCK)) {
+        if (!state.is(CustomTags.BLOCK_CROP_SOIL)) {
             level.destroyBlock(pos, true);
             level.setBlock(pos, block == Blocks.DIRT ? FARMLAND.defaultBlockState() : block.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
@@ -187,7 +188,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldPlant(BlockPos pos, Block cropBlock) {
         BlockState state = level.getBlockState(pos);
-        if (!state.is(CrossFarmingData.CustomTags.FARM_CROPS_BLOCK)) {
+        if (!state.is(CustomTags.BLOCK_CROP_SOIL)) {
             level.setBlock(pos, cropBlock.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
