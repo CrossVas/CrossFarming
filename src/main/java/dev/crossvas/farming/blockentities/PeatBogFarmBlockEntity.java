@@ -26,9 +26,6 @@ import java.util.List;
 
 public class PeatBogFarmBlockEntity extends BaseBlockEntity {
 
-    public int soilCounter;
-    public int waterCounter;
-
     public PeatBogFarmBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CrossFarmingData.PEAT_BOG_FARM_TILE.get(), pPos, pBlockState);
         initFarmSidedCaps(this);
@@ -73,8 +70,6 @@ public class PeatBogFarmBlockEntity extends BaseBlockEntity {
     @Override
     public void init() {
         super.init();
-        soilCounter = 0;
-        waterCounter = 0;
     }
 
     @Override

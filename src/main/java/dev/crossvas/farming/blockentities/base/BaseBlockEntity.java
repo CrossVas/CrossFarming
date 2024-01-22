@@ -106,6 +106,7 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         tick = 0;
         seconds = 0;
         soilCounter = 0;
+        waterCounter = 0;
         platformBuilt = false;
         platformCleared = false;
     }
