@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class TreeCombineBlockEntity extends BaseBlockEntity {
@@ -95,50 +96,50 @@ public class TreeCombineBlockEntity extends BaseBlockEntity {
                     }
                 }
             }
-        }
 
-        if (mainFarm != null && seconds == CrossFarmingConfig.TREE_COMBINE_SECONDS_TICK.get()) {
-            seconds = 0;
+            if (mainFarm != null && seconds == CrossFarmingConfig.TREE_COMBINE_SECONDS_TICK.get()) {
+                seconds = 0;
 
-            BlockPos logPos = mainFarm.getBlockPos();
-            for (BlockPos areaPos : getWorkingSpace(mainFarm.getBlockPos().above(), farmRange)) {
-                if (level.getBlockState(areaPos).is(BlockTags.LOGS)) {
-                    logPos = areaPos;
-                    break;
+                BlockPos logPos = mainFarm.getBlockPos();
+                for (BlockPos areaPos : getWorkingSpace(mainFarm.getBlockPos().above(), farmRange)) {
+                    if (level.getBlockState(areaPos).is(BlockTags.LOGS)) {
+                        logPos = areaPos;
+                        break;
+                    }
                 }
-            }
 
-            List<BlockPos> area = findPositions(logPos);
-            for (BlockPos pos : area) {
-                if (hasEnergyToWork() && shouldHarvest(pos)) {
-                    setChanged();
+                Set<BlockPos> area = findPositions(logPos);
+                for (BlockPos pos : area) {
+                    if (hasEnergyToWork() && shouldHarvest(pos)) {
+                        setChanged();
+                    }
                 }
-            }
 
-            int offset = 5;
+                int offset = 5;
 
-            // collecting area
-            AABB collectArea = new AABB(this.x - farmRange - offset, this.y - offset, this.z - farmRange - offset, this.x + farmRange + offset, this.y + offset, this.z + farmRange + offset);
-            List<ItemEntity> items = this.level.getEntitiesOfClass(ItemEntity.class, collectArea, VALID_ITEM_ENTITY);
-            for(ItemEntity item : items) {
-                if (hasEnergyToWork()) {
-                    ItemStack collected;
-                    if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
-                        IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
-                        collected = ItemHelper.insertItemStacked(itemHandler, 0, item.getItem(), false);
-                        if (collected.getCount() > 0) {
+                // collecting area
+                AABB collectArea = new AABB(this.x - farmRange - offset, this.y - offset, this.z - farmRange - offset, this.x + farmRange + offset, this.y + offset, this.z + farmRange + offset);
+                List<ItemEntity> items = this.level.getEntitiesOfClass(ItemEntity.class, collectArea, VALID_ITEM_ENTITY);
+                for(ItemEntity item : items) {
+                    if (hasEnergyToWork()) {
+                        ItemStack collected;
+                        if (!getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).isEmpty()) {
+                            IItemHandler itemHandler = getSurroundingCaps(ForgeCapabilities.ITEM_HANDLER).get(0); // get the first found itemHandler;
+                            collected = ItemHelper.insertItemStacked(itemHandler, 0, item.getItem(), false);
+                            if (collected.getCount() > 0) {
+                                collected = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, item.getItem(), false);
+                            }
+                        } else {
                             collected = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, item.getItem(), false);
                         }
-                    } else {
-                        collected = ItemHelper.insertItemStacked(this.ITEM_HANDLER, 0, item.getItem(), false);
+                        if (collected.isEmpty()) {
+                            item.discard();
+                        } else {
+                            item.setItem(collected);
+                        }
+                        this.extractEnergy(1);
+                        setChanged();
                     }
-                    if (collected.isEmpty()) {
-                        item.discard();
-                    } else {
-                        item.setItem(collected);
-                    }
-                    this.extractEnergy(1);
-                    setChanged();
                 }
             }
         }

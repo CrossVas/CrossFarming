@@ -2,7 +2,6 @@ package dev.crossvas.farming.blockentities.base;
 
 import dev.crossvas.farming.utils.helpers.Helpers;
 import dev.crossvas.farming.utils.helpers.ItemHelper;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -289,24 +288,23 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
                 level.getBlockState(pos.north()).is(blockTag) && level.getBlockState(pos.south()).is(blockTag);
     }
 
-    public List<BlockPos> findPositions(BlockPos location) {
-        List<BlockPos> found = new ArrayList<>();
-        Set<BlockPos> checked = new ObjectOpenHashSet<>();
-        found.add(location);
+    public Set<BlockPos> findPositions(BlockPos location) {
+        Set<BlockPos> found = new LinkedHashSet<>();
+        Set<BlockPos> checked = new LinkedHashSet<>();
+        checked.add(location);
         Block startBlock = level.getBlockState(location).getBlock();
-        for (int i = 0; i < found.size(); i++) {
-            BlockPos blockPos = found.get(i);
-            checked.add(blockPos);
-            for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-1, -1, -1), blockPos.offset(1, 1, 1))) {
-                // We can check contains as mutable
-                if (!checked.contains(pos)) {
-                    if (!level.getBlockState(pos).isAir()) {
-                        if (startBlock == level.getBlockState(pos).getBlock()) {
-                            // Make sure to add it as immutable
-                            found.add(pos.immutable());
-                        }
-                        if (found.size() > 64) {
-                            return found;
+        while (!checked.isEmpty()) {
+            BlockPos blockPos = checked.iterator().next();
+            found.add(blockPos);
+            checked.remove(blockPos);
+            if (found.size() > 128) {
+                return found;
+            }
+            for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-1, 0, -1), blockPos.offset(1, 1, 1))) {
+                if (!found.contains(pos) && !level.getBlockState(pos).isAir()) {
+                    if (level.getBlockState(pos).is(startBlock)) {
+                        if (!checked.contains(pos)) {
+                            checked.add(pos.immutable());
                         }
                     }
                 }
@@ -335,9 +333,8 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
     }
 
     public static List<ItemStack> getBlockDrops(Level level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
         NonNullList<ItemStack> stacks = NonNullList.create();
-        stacks.addAll(Block.getDrops(state, (ServerLevel) level, pos, level.getBlockEntity(pos)));
+        stacks.addAll(Block.getDrops(level.getBlockState(pos), (ServerLevel) level, pos, level.getBlockEntity(pos)));
         return stacks;
     }
 

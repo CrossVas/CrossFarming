@@ -143,8 +143,7 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
     }
 
     public boolean shouldReplace(BlockPos pos) {
-        BlockState state = this.level.getBlockState(pos);
-        if (!state.is(CustomTags.BLOCK_TREE_SOIL)) {
+        if (!level.getBlockState(pos).is(CustomTags.BLOCK_TREE_SOIL)) {
             level.destroyBlock(pos, true);
             level.setBlock(pos, Blocks.DIRT.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
@@ -156,8 +155,8 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
     }
 
     public boolean shouldPlant(BlockPos pos, Block saplingBlock) {
-        BlockState state = level.getBlockState(pos);
-        if (!state.is(CustomTags.BLOCK_TREE_PLANTABLE) && !state.is(CustomTags.BLOCK_TREE_HARVESTABLE)) {
+        if (!level.getBlockState(pos).is(CustomTags.BLOCK_TREE_PLANTABLE) &&
+                !level.getBlockState(pos).is(CustomTags.BLOCK_TREE_HARVESTABLE)) {
             level.setBlock(pos, saplingBlock.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();

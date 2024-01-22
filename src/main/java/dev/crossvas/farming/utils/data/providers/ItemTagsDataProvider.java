@@ -52,7 +52,9 @@ public class ItemTagsDataProvider extends ItemTagsProvider {
         this.tag(CustomTags.ITEM_CROP_HARVESTABLE).addOptionalTag(new ResourceLocation(ma, "essences"));
         this.tag(CustomTags.ITEM_CROP_HARVESTABLE).addOptionalTag(new ResourceLocation(ma, "seeds"));
 
-        this.tag(CustomTags.ITEM_TREE_HARVESTABLE).addOptionalTag(new ResourceLocation("ic2", "rubber_wood"));
+        this.tag(CustomTags.ITEM_TREE_HARVESTABLE).addOptional(new ResourceLocation("ic2", "rubber_wood"));
+        this.tag(CustomTags.ITEM_TREE_HARVESTABLE).addOptional(new ResourceLocation("ic2", "sticky_resin"));
         this.tag(CustomTags.ITEM_RESIN_HARVESTABLE).addOptional(new ResourceLocation("ic2", "sticky_resin"));
+        this.tag(CustomTags.ITEM_TREE_PLANTABLE).addOptional(new ResourceLocation("ic2", "rubber_sapling"));
     }
 }

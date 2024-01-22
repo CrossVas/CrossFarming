@@ -161,8 +161,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
     }
 
     public boolean shouldReplaceWater(BlockPos pos) {
-        BlockState state = this.level.getBlockState(pos);
-        if (!state.is(Blocks.WATER) && hasWaterSides(pos, CustomTags.BLOCK_CROP_FARMLAND) && hasEnergyToWork()) {
+        if (!this.level.getBlockState(pos).is(Blocks.WATER) && hasWaterSides(pos, CustomTags.BLOCK_CROP_FARMLAND) && hasEnergyToWork()) {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.CROP_PLANTED, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
@@ -173,11 +172,9 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
     }
 
     public boolean shouldReplace(BlockPos pos, Block block) {
-        Block FARMLAND = Blocks.FARMLAND;
-        BlockState state = this.level.getBlockState(pos);
-        if (!state.is(CustomTags.BLOCK_CROP_FARMLAND)) {
+        if (!this.level.getBlockState(pos).is(CustomTags.BLOCK_CROP_FARMLAND)) {
             level.destroyBlock(pos, true);
-            level.setBlock(pos, block == Blocks.DIRT ? FARMLAND.defaultBlockState() : block.defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(pos, block == Blocks.DIRT ? Blocks.FARMLAND.defaultBlockState() : block.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
             setChanged();
@@ -187,8 +184,7 @@ public class CropFarmBlockEntity extends BaseBlockEntity {
     }
 
     public boolean shouldPlant(BlockPos pos, Block cropBlock) {
-        BlockState state = level.getBlockState(pos);
-        if (!state.is(CustomTags.BLOCK_CROP_HARVESTABLE)) {
+        if (!level.getBlockState(pos).is(CustomTags.BLOCK_CROP_HARVESTABLE)) {
             level.setBlock(pos, cropBlock.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();
