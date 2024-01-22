@@ -15,96 +15,60 @@ public class RecipeConditions {
     public static ResourceLocation ENABLE_IC2_RECIPES_ID = new ResourceLocation(CrossFarming.ID, "enable_ic2_recipes");
     public static ResourceLocation IC2_LOADED = new ResourceLocation(CrossFarming.ID, "ic2_loaded");
 
+    public static ICondition VANILLA_RECIPES = new CommonRecipeCondition(ENABLE_VANILLA_RECIPES_ID, CrossFarmingConfig.ENABLE_VANILLA_RECIPES.get());
+    public static ICondition IC2_RECIPES = new CommonRecipeCondition(ENABLE_IC2_RECIPES_ID, CrossFarmingConfig.ENABLE_IC2_RECIPES.get());
+    public static ICondition IC2 = new CommonRecipeCondition(IC2_LOADED, ModList.get().isLoaded("ic2"));
+
     public static void init() {
-        CraftingHelper.register(new VanillaRecipeCondition.Serializer());
-        CraftingHelper.register(new IC2RecipeCondition.Serializer());
-        CraftingHelper.register(new IC2LoadedRecipeCondition.Serializer());
+        CraftingHelper.register(new CommonConditionSerializer<>(VANILLA_RECIPES));
+        CraftingHelper.register(new CommonConditionSerializer<>(IC2_RECIPES));
+        CraftingHelper.register(new CommonConditionSerializer<>(IC2));
     }
 
-    public static class VanillaRecipeCondition implements ICondition {
+    public static class CommonRecipeCondition implements ICondition {
+
+        ResourceLocation ID;
+        boolean CONDITION;
+
+        public CommonRecipeCondition(ResourceLocation id, boolean condition) {
+            this.ID = id;
+            this.CONDITION = condition;
+        }
 
         @Override
         public ResourceLocation getID() {
-            return ENABLE_VANILLA_RECIPES_ID;
+            return this.ID;
+        }
+
+        public boolean getCondition() {
+            return this.CONDITION;
         }
 
         @Override
-        public boolean test(IContext context) {
-            return CrossFarmingConfig.ENABLE_VANILLA_RECIPES.get();
-        }
-
-        public static class Serializer implements IConditionSerializer<VanillaRecipeCondition> {
-
-            @Override
-            public void write(JsonObject json, VanillaRecipeCondition value) {}
-
-            @Override
-            public VanillaRecipeCondition read(JsonObject json) {
-                return new VanillaRecipeCondition();
-            }
-
-            @Override
-            public ResourceLocation getID() {
-                return ENABLE_VANILLA_RECIPES_ID;
-            }
+        public boolean test(IContext iContext) {
+            return this.CONDITION;
         }
     }
 
-    public static class IC2RecipeCondition implements ICondition {
+    public static class CommonConditionSerializer<T extends ICondition> implements IConditionSerializer<T> {
+
+        T COMMON_CONDITION;
+
+        public CommonConditionSerializer(T recipeCondition) {
+            this.COMMON_CONDITION = recipeCondition;
+        }
+
+        @Override
+        public void write(JsonObject jsonObject, T commonRecipeCondition) {}
+
+        @Override
+        public T read(JsonObject jsonObject) {
+            return this.COMMON_CONDITION;
+        }
 
         @Override
         public ResourceLocation getID() {
-            return ENABLE_IC2_RECIPES_ID;
-        }
-
-        @Override
-        public boolean test(IContext context) {
-            return CrossFarmingConfig.ENABLE_IC2_RECIPES.get();
-        }
-
-        public static class Serializer implements IConditionSerializer<IC2RecipeCondition> {
-
-            @Override
-            public void write(JsonObject json, IC2RecipeCondition value) {}
-
-            @Override
-            public IC2RecipeCondition read(JsonObject json) {
-                return new IC2RecipeCondition();
-            }
-
-            @Override
-            public ResourceLocation getID() {
-                return ENABLE_IC2_RECIPES_ID;
-            }
-        }
-    }
-
-    public static class IC2LoadedRecipeCondition implements ICondition {
-
-        @Override
-        public ResourceLocation getID() {
-            return IC2_LOADED;
-        }
-
-        @Override
-        public boolean test(IContext context) {
-            return ModList.get().isLoaded("ic2");
-        }
-
-        public static class Serializer implements IConditionSerializer<IC2LoadedRecipeCondition> {
-
-            @Override
-            public void write(JsonObject json, IC2LoadedRecipeCondition value) {}
-
-            @Override
-            public IC2LoadedRecipeCondition read(JsonObject json) {
-                return new IC2LoadedRecipeCondition();
-            }
-
-            @Override
-            public ResourceLocation getID() {
-                return IC2_LOADED;
-            }
+            return this.COMMON_CONDITION.getID();
         }
     }
 }

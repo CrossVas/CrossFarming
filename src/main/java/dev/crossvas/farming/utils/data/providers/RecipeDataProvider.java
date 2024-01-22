@@ -101,8 +101,8 @@ public class RecipeDataProvider extends RecipeProvider implements IConditionBuil
     }
 
     public static void buildIC2Recipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
-        ICondition IC2_RECIPES = new RecipeConditions.IC2RecipeCondition();
-        ICondition IC2_LOADED = new RecipeConditions.IC2LoadedRecipeCondition();
+        ICondition IC2_RECIPES = RecipeConditions.IC2_RECIPES;
+        ICondition IC2_LOADED = RecipeConditions.IC2;
         ConditionalRecipe.builder().addCondition(IC2_RECIPES).addCondition(IC2_LOADED).addRecipe(finishedRecipeConsumer ->
                 ShapedRecipeBuilder.shaped(CrossFarmingData.CROP_FARM_BLOCK.get())
                         .pattern("GDG")
@@ -222,7 +222,7 @@ public class RecipeDataProvider extends RecipeProvider implements IConditionBuil
     }
 
     public static void buildVanillaRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
-        ICondition VANILLA_RECIPE = new RecipeConditions.VanillaRecipeCondition();
+        ICondition VANILLA_RECIPE = RecipeConditions.VANILLA_RECIPES;
         ConditionalRecipe.builder().addCondition(VANILLA_RECIPE).addRecipe(finishedRecipeConsumer ->
                 ShapedRecipeBuilder.shaped(CrossFarmingData.CROP_FARM_BLOCK.get())
                         .pattern("GDG")
