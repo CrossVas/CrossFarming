@@ -23,9 +23,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class TreeFarmBlockEntity extends BaseBlockEntity {
 
-    public int farmRange = 7;
-    public int farmArea = 4;
-    public int soilCounter;
     public int saplingCounter;
 
     public TreeFarmBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -72,7 +69,6 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
     @Override
     public void init() {
         super.init();
-        soilCounter = 0;
         saplingCounter = 0;
     }
 
