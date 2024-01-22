@@ -9,8 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -105,7 +103,7 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
                 for (BlockPos checkPos : getWorkingSpace(getBlockPos(), farmRange)) {
                     if (!getWorkingSpace(getBlockPos(), farmArea).contains(checkPos)
                             && level.getBlockState(checkPos).is(CustomTags.BLOCK_TREE_SOIL)) {
-                        if (hasEnergyToWork() && saplingStack.is(ItemTags.SAPLINGS)) {
+                        if (hasEnergyToWork() && saplingStack.is(CustomTags.ITEM_TREE_PLANTABLE)) {
                             if (saplingStack.getItem() instanceof BlockItem blockItem) {
                                 Block sapling = blockItem.getBlock();
                                 if (shouldPlant(checkPos.above(), sapling)) {
@@ -159,7 +157,7 @@ public class TreeFarmBlockEntity extends BaseBlockEntity {
 
     public boolean shouldPlant(BlockPos pos, Block saplingBlock) {
         BlockState state = level.getBlockState(pos);
-        if (!state.is(BlockTags.SAPLINGS) && !state.is(BlockTags.LOGS)) {
+        if (!state.is(CustomTags.BLOCK_TREE_PLANTABLE) && !state.is(CustomTags.BLOCK_TREE_HARVESTABLE)) {
             level.setBlock(pos, saplingBlock.defaultBlockState(), Block.UPDATE_ALL);
             level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 1F);
             this.extractEnergy();

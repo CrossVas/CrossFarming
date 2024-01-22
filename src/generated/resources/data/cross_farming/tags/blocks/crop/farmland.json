@@ -1,0 +1,25 @@
+{
+  "values": [
+    "minecraft:farmland",
+    {
+      "id": "mysticalagriculture:inferium_farmland",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:prudentium_farmland",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:tertium_farmland",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:imperium_farmland",
+      "required": false
+    },
+    {
+      "id": "mysticalagriculture:supremium_farmland",
+      "required": false
+    }
+  ]
+}

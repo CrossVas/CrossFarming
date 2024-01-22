@@ -1,6 +1,15 @@
 {
   "values": [
-    "#minecraft:logs",
+    "minecraft:acacia_log",
+    "minecraft:birch_log",
+    "minecraft:jungle_log",
+    "minecraft:oak_log",
+    "minecraft:dark_oak_log",
+    "minecraft:spruce_log",
+    {
+      "id": "#ic2:rubber_wood",
+      "required": false
+    },
     "minecraft:apple",
     "minecraft:stick"
   ]

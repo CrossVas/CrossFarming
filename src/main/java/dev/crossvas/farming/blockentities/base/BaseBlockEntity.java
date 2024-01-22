@@ -334,18 +334,18 @@ public abstract class BaseBlockEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    public static List<ItemStack> getBlockDrops(Level world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
+    public static List<ItemStack> getBlockDrops(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
         NonNullList<ItemStack> stacks = NonNullList.create();
-        stacks.addAll(Block.getDrops(state, (ServerLevel)world, pos, world.getBlockEntity(pos)));
+        stacks.addAll(Block.getDrops(state, (ServerLevel) level, pos, level.getBlockEntity(pos)));
         return stacks;
     }
 
-    public static boolean spawnItemStack(ItemStack stack, Level world, BlockPos pos) {
-        ItemEntity item = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, stack);
+    public static boolean spawnItemStack(ItemStack stack, Level level, BlockPos pos) {
+        ItemEntity item = new ItemEntity(level, (double)pos.getX() + 0.5, (double)pos.getY() + 0.2, (double)pos.getZ() + 0.5, stack);
         item.lerpMotion(0.0, -1.0, 0.0);
         item.setPickUpDelay(40);
         item.setItem(stack);
-        return world.addFreshEntity(item);
+        return level.addFreshEntity(item);
     }
 }

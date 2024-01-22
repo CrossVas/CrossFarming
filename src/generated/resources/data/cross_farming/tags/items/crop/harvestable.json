@@ -3,6 +3,16 @@
     "minecraft:wheat",
     "minecraft:beetroot",
     "minecraft:potato",
-    "minecraft:carrot"
+    "minecraft:carrot",
+    "minecraft:beetroot_seeds",
+    "minecraft:wheat_seeds",
+    {
+      "id": "#mysticalagriculture:essences",
+      "required": false
+    },
+    {
+      "id": "#mysticalagriculture:seeds",
+      "required": false
+    }
   ]
 }

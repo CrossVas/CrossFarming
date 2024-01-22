@@ -101,8 +101,8 @@ public class CropCombineBlockEntity extends BaseBlockEntity {
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) {
             return false;
-        } else if (state.getBlock() instanceof IPlantable && state.getBlock() instanceof CropBlock) {
-            if (state.getValue(CropBlock.AGE) == CropBlock.MAX_AGE) {
+        } else if (state.getBlock() instanceof IPlantable && state.getBlock() instanceof CropBlock cropBlock) {
+            if (state.getValue(cropBlock.getAgeProperty()) == cropBlock.getMaxAge()) {
                 collectDrops(pos, CustomTags.ITEM_CROP_HARVESTABLE);
                 level.destroyBlock(pos, false);
                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);

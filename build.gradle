@@ -156,7 +156,7 @@ dependencies {
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:8.3.103")
     implementation fg.deobf("dev.architectury:architectury-forge:6.5.85")
 
-    runtimeOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:9.1.663")
+    implementation fg.deobf("me.shedaniel:RoughlyEnoughItems-forge:9.1.663")
 
     implementation 'one.util:streamex:0.8.2'
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'

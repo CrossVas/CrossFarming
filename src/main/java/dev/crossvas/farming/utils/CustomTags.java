@@ -16,7 +16,9 @@ public class CustomTags {
 
     // Crop farm
     public static final TagKey<Block> BLOCK_CROP_SOIL = createBlockTag("crop/soil");
+    public static final TagKey<Block> BLOCK_CROP_FARMLAND = createBlockTag("crop/farmland");
     public static final TagKey<Item> ITEM_CROP_SOIL = createItemTag("crop/soil");
+    public static final TagKey<Item> ITEM_CROP_FARMLAND = createItemTag("crop/farmland");
     public static final TagKey<Item> ITEM_CROP_PLANTABLE = createItemTag("crop/plantable");
     public static final TagKey<Block> BLOCK_CROP_HARVESTABLE = createBlockTag("crop/harvestable");
     public static final TagKey<Item> ITEM_CROP_HARVESTABLE = createItemTag("crop/harvestable");
@@ -27,6 +29,7 @@ public class CustomTags {
     // Tree farm
     public static final TagKey<Block> BLOCK_TREE_SOIL = createBlockTag("tree/soil");
     public static final TagKey<Item> ITEM_TREE_SOIL = createItemTag("tree/soil");
+    public static final TagKey<Block> BLOCK_TREE_PLANTABLE = createBlockTag("tree/plantable");
     public static final TagKey<Item> ITEM_TREE_PLANTABLE = createItemTag("tree/plantable");
     public static final TagKey<Block> BLOCK_TREE_HARVESTABLE = createBlockTag("tree/harvestable");
     public static final TagKey<Item> ITEM_TREE_HARVESTABLE = createItemTag("tree/harvestable");

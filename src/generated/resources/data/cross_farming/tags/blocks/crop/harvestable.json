@@ -1,5 +1,12 @@
 {
   "values": [
-    "#minecraft:logs"
+    "minecraft:wheat",
+    "minecraft:beetroots",
+    "minecraft:potatoes",
+    "minecraft:carrots",
+    {
+      "id": "#mysticalagriculture:essences",
+      "required": false
+    }
   ]
 }
