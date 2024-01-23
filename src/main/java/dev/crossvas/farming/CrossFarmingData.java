@@ -6,16 +6,13 @@ import dev.crossvas.farming.blocks.BaseFarmBlock;
 import dev.crossvas.farming.blocks.BlockPeatBog;
 import dev.crossvas.farming.gui.menus.*;
 import dev.crossvas.farming.gui.screens.*;
-import dev.crossvas.farming.items.PeatItem;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -30,6 +27,7 @@ import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -45,7 +43,12 @@ public class CrossFarmingData {
 
     // Items
 
-    public static final RegistryObject<Item> PEAT_ITEM = registerItem("peat", PeatItem::new);
+    public static final RegistryObject<Item> PEAT_ITEM = registerItem("peat", () -> new Item(new Item.Properties().tab(CrossFarming.TAB)) {
+        @Override
+        public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+            return 2000;
+        }
+    });
 
     // Blocks
 
