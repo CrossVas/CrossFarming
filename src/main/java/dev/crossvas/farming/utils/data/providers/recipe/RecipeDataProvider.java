@@ -1,7 +1,6 @@
-package dev.crossvas.farming.utils.data.providers;
+package dev.crossvas.farming.utils.data.providers.recipe;
 
 import dev.crossvas.farming.CrossFarmingData;
-import dev.crossvas.farming.utils.data.RecipeConditions;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;

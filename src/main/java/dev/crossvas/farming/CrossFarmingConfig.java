@@ -50,8 +50,8 @@ public class CrossFarmingConfig {
         ConfigSection COMPAT = CONFIG.add("compat");
         COMPAT.setComment("Compat Settings");
 
-        ENABLE_VANILLA_RECIPES = COMPAT.addBool("enable_vanilla_recipes", true, "Use vanilla items for farming blocks").setRequiredReload(ReloadMode.GAME).setServerSynced();
-        ENABLE_IC2_RECIPES = COMPAT.addBool("enable_ic2_recipes", true, "Use IC2 items for farming blocks").setRequiredReload(ReloadMode.GAME).setServerSynced();
+        ENABLE_VANILLA_RECIPES = COMPAT.addBool("enable_vanilla_recipes", true, "Use vanilla items for farming blocks").setRequiredReload(ReloadMode.WORLD).setServerSynced();
+        ENABLE_IC2_RECIPES = COMPAT.addBool("enable_ic2_recipes", true, "Use IC2 items for farming blocks").setRequiredReload(ReloadMode.WORLD).setServerSynced();
 
         ConfigSection FARMS = CONFIG.add("farms");
 

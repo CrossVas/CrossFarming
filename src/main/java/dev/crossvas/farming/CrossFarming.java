@@ -1,7 +1,7 @@
 package dev.crossvas.farming;
 
 import dev.crossvas.farming.utils.data.DataGenerator;
-import dev.crossvas.farming.utils.data.RecipeConditions;
+import dev.crossvas.farming.utils.data.providers.recipe.RecipeConditions;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -14,7 +14,6 @@ public class CrossFarming {
     public static final String ID = "cross_farming";
 
     public static final CreativeModeTab TAB = new CreativeModeTab(CrossFarming.ID) {
-
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(CrossFarmingData.CROP_FARM_BLOCK.get());
